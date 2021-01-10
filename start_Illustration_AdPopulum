@@ -1,0 +1,2 @@
+#!/bin/bash
+elm-live --dir=docs  src/Illustration_AdPopulum.elm -- --output=docs/elm.js

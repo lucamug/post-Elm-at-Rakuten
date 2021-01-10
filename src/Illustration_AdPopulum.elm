@@ -1,4 +1,4 @@
-module Illustration exposing (main)
+module Illustration_AdPopulum exposing (main)
 
 import Playground exposing (..)
 
@@ -234,8 +234,7 @@ fishes =
 main : Program () Screen ( Int, Int )
 main =
     picture <|
-        [ square blue 2000
-        , fishes |> rotate 45 |> move -200 -200 |> fade 0.7
+        [ fishes |> rotate 45 |> move -200 -200 |> fade 0.7
         , fishSmall3 palette2 |> move 20 180 |> rotate -130 |> scale 1.4
         , ripple |> scale 4 |> rotate 45 |> fade 0.5 |> move -160 70
         , ripple |> scale 2 |> rotate 40 |> fade 0.5 |> move -150 80
