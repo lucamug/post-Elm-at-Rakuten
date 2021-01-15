@@ -1,0 +1,1235 @@
+<!-- saved from url=(0076)#fnref:2 -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/livereload.js" data-no-instant="" defer=""></script>
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="http://localhost:1313/images/favicon.svg">
+
+    <link rel="stylesheet" href="./Elm in Rakuten _ Rakuten Engineering Blog_files/main.min.0c89d65dd26b058a89c7a0525195bf8de45fde31860c818e84dc8772fc7a1a6f.css">
+
+    <link rel="stylesheet" href="./Elm in Rakuten _ Rakuten Engineering Blog_files/prism.css">
+    <link href="./Elm in Rakuten _ Rakuten Engineering Blog_files/css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+    <title>Elm in Rakuten | Rakuten Engineering Blog</title>
+    <meta name="description" content="In our team at Rakuten, we have been using Elm1 in production for almost two years now. This post is about our story, the lessons we learned, and our likes and dislikes.
+Everything started in the Berlin branch of Rakuten during the summer of 2017. We were maintaining a medium-size single-page application written in Vanilla JavaScript when things started going out of control.
+ “Our JavaScript application had global variables everywhere, and debugging was a nightmare.">
+    <meta property="og:title" content="Elm in Rakuten | Rakuten Engineering Blog">
+    <meta property="og:site_name" content="Rakuten Engineering Blog">
+    <meta property="og:description" content="In our team at Rakuten, we have been using Elm1 in production for almost two years now. This post is about our story, the lessons we learned, and our likes and dislikes.
+Everything started in the Berlin branch of Rakuten during the summer of 2017. We were maintaining a medium-size single-page application written in Vanilla JavaScript when things started going out of control.
+ “Our JavaScript application had global variables everywhere, and debugging was a nightmare.">
+    <meta property="og:url" content="http://localhost:1313/boaz-yaniv/tech-blog-demo/post/elm-in-rakuten/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://lucamug.github.io/post-Elm-in-Rakuten/images/elm-in-rakuten.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Elm in Rakuten | Rakuten Engineering Blog">
+
+    <link rel="canonical" href="http://localhost:1313/boaz-yaniv/tech-blog-demo/post/elm-in-rakuten/">
+
+
+    <meta name="twitter:description" content="In our team at Rakuten, we have been using Elm1 in production for almost two years now. This post is about our story, the lessons we learned, and our likes and dislikes.
+Everything started in the Berlin branch of Rakuten during the summer of 2017. We were maintaining a medium-size single-page application written in Vanilla JavaScript when things started going out of control.
+ “Our JavaScript application had global variables everywhere, and debugging was a nightmare.">
+    <meta name="twitter:image" content="https://lucamug.github.io/post-Elm-in-Rakuten/images/elm-in-rakuten.png">
+    <meta property="article:published_time" content="2021-01-12T00:00:00+09:00">
+    <meta property="article:updated_time" content="2021-01-12T00:00:00+09:00">
+
+
+
+    <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/clipboard.min.js"></script>
+    <style>
+        body {
+            background-color: #fafafa
+        }
+    </style>
+</head>
+
+
+<body class="line-numbers" data-new-gr-c-s-check-loaded="14.991.0" data-gr-ext-installed="" style="--tooltip:lightgrey;">
+
+
+    <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/initColors.js"></script>
+
+    <div class="layout-styled">
+
+
+        <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/toggleLogos.js"></script>
+
+
+        <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/toggleColors.js"></script>
+
+
+        <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/copyUrl.js"></script>
+
+
+
+        <section class="section narrow">
+
+            <section id="articleHero" class="section narrow">
+                <div class="article-hero">
+                    <header class="article-header">
+                        <h1 class="article-hero-heading">Elm in Rakuten</h1>
+                        <div class="article-hero-subtitle">
+                            <div class="article-meta">
+
+
+
+
+                                <a href="http://localhost:1313/boaz-yaniv/tech-blog-demo/authors/luca-mugnaini/" class="article-author-link">
+
+                                    <div class="article-author-avatar">
+                                        <img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/luca-mugnaini.png">
+                                    </div>
+
+
+                                    <strong>Luca Mugnaini</strong>
+
+                                    <span class="hide-on-mobile">,&nbsp;</span>
+                                </a>
+
+
+
+
+                                <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/collapseAuthors.js"></script>
+                                January 12, 2021
+                                • 36 min read
+                            </div>
+
+
+
+                        </div>
+                    </header>
+
+                    <div class="article-hero-image" id="ArticleImage__Hero">
+                        <img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/elm-in-rakuten.png">
+                    </div>
+
+                </div>
+            </section>
+
+
+            <aside id="progressBar" class="aside-container" style="animation-name: progress-fade-in; opacity: 1;">
+                <div class="aside-align">
+                    <div>
+                        <div class="overlap-container">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-container" tabindex="{-1}">
+                    <div class="track-line" aria-hidden="true">
+                        <div id="progressIndicator" class="progress-line" style="transform: translateY(0%);"></div>
+                    </div>
+                </div>
+            </aside>
+
+
+            <article id="articleContent" class="post-content" style="position:relative;">
+                <p>In our team at Rakuten, <strong>we have been using Elm<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> in production for
+                        almost two years now</strong>. This post is about our story, the lessons we learned, and our likes and dislikes.</p>
+                <p>Everything started in the Berlin branch of Rakuten during the summer of 2017. We were maintaining a medium-size single-page application written in Vanilla JavaScript when things started going out of control.</p>
+                <blockquote>
+                    <p>“Our JavaScript application had global variables everywhere, and debugging was a nightmare.”</p>
+                </blockquote>
+                <p>Fixing something in one place would break the code in several other locations. We had global variables everywhere, and debugging was a nightmare.</p>
+                <p>We decided to impose some discipline and start rewriting functions in a <em>pure style</em><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> to regain some control over our application. The code
+                    was getting better, more self-contained, and simpler to understand.</p>
+                <p>We were thinking: <em>“if we only could find a tool to enforce these rules so we wouldn’t have to rely on our self-discipline…”</em> and then we came across the post <em>“Introduction to The Elm Architecture and How to Build our
+                        First Application”</em><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> published in the website css-tricks.com. It was
+                    love at first sight.</p>
+                <blockquote>
+                    <p>“Elm guarantees no errors at runtime.”</p>
+                    <p><strong>– The Elm website <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></strong></p>
+                </blockquote>
+                <p>Elm was promising that <strong>all of our functions would be pure</strong> by design and that there would be <strong>no errors at runtime</strong><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>
+                    anymore.</p>
+                <p>Moreover, <strong>The Elm Architecture</strong>, included in the Elm language, <strong>seemed an excellent way to structure an application</strong>. It ended up being one of the most influential Elm ideas in the front-end world,
+                    more about this later.</p>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/the-elm-architecture.jpg" alt="The Elm Architecture">
+                    <em>The Elm Architecture, illustration by <a href="https://twitter.com/01k">Kolja Wilcke</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</em>
+                </p>
+                <p>So, we started learning Elm by building some prototypes, and the first results were promising. But the technology stack was still heavily server-side based, mostly PHP, and the adoption was proceeding slowly.</p>
+                <h3 id="one-year-later">🕒　One year later</h3>
+                <p>Fast forward one year (and move 9,000 kilometers to the right), and in the headquarters of Rakuten, in Tokyo, there was an environment where Elm would have taken root successfully.</p>
+                <p>Several engineers were already pushing for a more functional-style way of writing code, and in a department heavily based on back-end APIs, there was a strong need for a decoupled way to write user interfaces.</p>
+                <h3 id="two-years-later">🕒　Two years later</h3>
+                <p>Fast forward another couple of years, and here we are, with <strong>several applications in production built in Elm for a total of ~100k lines of code</strong>.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref"
+                            role="doc-noteref">6</a></sup></p>
+                <p>These are some of our public projects made in Elm:</p>
+                <ul>
+                    <li>A generic <strong>authentication and registration system</strong> used, among others, in the <a
+                            href="https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&amp;redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&amp;response_type=code&amp;scope=openid+profile+email&amp;ui_locales=en-UK#/registration/1">Taiwanese
+                            marketplace</a>, and the <a
+                            href="https://login.account.rakuten.com/sso/register?client_id=rakuten_sports&amp;redirect_uri=https%3A%2F%2Fsports.rakuten.com%2F&amp;response_type=code&amp;scope=openid%2Bemail%2Bprofile&amp;ui_locales=en-UK#/sign_in">Rakuten
+                            Sport website</a>.</li>
+                    <li><strong>R10</strong>, a UI library: <a href="https://github.com/rakutentech/r10/">Source Code</a> | <a href="https://r10.netlify.app/">Demo</a> | <a href="https://ellie-app.com/btv2tGK7tk8a1">Editable demo</a> | <a
+                            href="https://package.elm-lang.org/packages/rakutentech/r10/latest/">Elm Package Manager</a>.</li>
+                    <li><strong>HTTP Trinity</strong>, an HTTP library: <a href="https://github.com/rakutentech/http-trinity">Source code</a> | <a href="https://rakutentech.github.io/http-trinity/">Demo</a>.</li>
+                    <li>The <strong>Rakuten Open Source website</strong>: <a href="https://github.com/rakutentech/rakutentech.github.io">Source Code</a> | <a href="https://rakutentech.github.io/">Website</a>.</li>
+                    <li>A simple <a href="https://login.account.rakuten.com/">404 error page</a> (The preceding link is broken to demonstrate the 404 error page).</li>
+                    <li>An <a href="https://static.id.rakuten.co.jp/static/about_security/jpn/">informative page about security</a>, in Japanese.</li>
+                </ul>
+                <h3 id="what-we-like-about-elm">What we like about Elm</h3>
+                <p>In no particular order.</p>
+                <ol>
+                    <li><a href="#1-controlled-state">Controlled state</a></li>
+                    <li><a href="#2-principle-of-least-astonishment">Principle of least astonishment</a></li>
+                    <li><a href="#3-making-impossible-states-impossible">“Making impossible states impossible”</a></li>
+                    <li><a href="#4-one-way-of-doing-things">One way of doing things</a></li>
+                    <li><a href="#5-stability">Stability</a></li>
+                    <li><a href="#6-functional-programming">Functional programming</a></li>
+                    <li><a href="#7-enforced-discipline">Enforced discipline</a></li>
+                    <li><a href="#8-learnability">Learnability</a></li>
+                    <li><a href="#9-compiler-as-assistant">Compiler as assistant</a></li>
+                    <li><a href="#10-elm-as-an-influencer">Elm as an influencer</a></li>
+                    <li><a href="#11-the-elm-architecture">The Elm Architecture</a></li>
+                    <li><a href="#12-the-elm-debugger">The Elm debugger</a></li>
+                    <li><a href="#13-elm-ui-the-alternative-to-csshtml">Elm-UI, the alternative to CSS/HTML</a></li>
+                    <li><a href="#14-readability-and-elm-syntax">Readability and Elm syntax</a></li>
+                    <li><a href="#15-refactoring">Refactoring</a></li>
+                    <li><a href="#16-hiring">Hiring</a></li>
+                    <li><a href="#17-fast-performance-and-small-assets">Fast performance and small assets</a></li>
+                </ol>
+                <h3 id="what-we-dont-like-about-elm">What we don’t like about Elm</h3>
+                <p>In no particular order.</p>
+                <ol>
+                    <li><a href="#1-not-mainstream">Not mainstream</a></li>
+                    <li><a href="#2-lack-of-googleable-resources">Lack of googleable resources</a></li>
+                    <li><a href="#3-reinventing-the-wheel">Reinventing the wheel</a></li>
+                    <li><a href="#4-mindset-shift">Mindset shift</a></li>
+                    <li><a href="#5-content-driven-static-websites">Content-driven static websites</a></li>
+                    <li><a href="#6-some-javascript-and-css-are-still-necessary">Some JavaScript and CSS are still necessary</a></li>
+                </ol>
+                <h1 id="what-we-like-about-elm-1">What we like about Elm</h1>
+                <h2 id="1-controlled-state">1. Controlled state</h2>
+                <p>JavaScript lets us do what we want with the state of a program. This can be useful for a quick prototype, but it is the precursor of bugs because it is difficult to track and understand changes in global variables.</p>
+                <blockquote>
+                    <p>“A large fraction of the flaws in software development are due to programmers not fully understanding all the possible states their code may execute in”</p>
+                    <p><strong>– John Carmack <sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></strong></p>
+                </blockquote>
+                <p><strong>All functions in Elm must be pure</strong>, so they cannot hold any state, and <strong>all data must be immutable</strong>. The entire state of your application needs to be stored in one place, by design, making your
+                    <strong>application simpler to comprehend and easier to debug</strong>.
+                </p>
+                <p>The place where the state is, in Elm, is the <code>Model</code> and it is managed by the <em>Elm Runtime system</em><sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup> so that 100% of the code that
+                    we write can be pure (these concepts will be explained in more detail later).</p>
+                <h2 id="2-principle-of-least-astonishment">2. Principle of least astonishment</h2>
+                <p>One of the ideas of Elm is that the outcome of the code should be predictable, without surprises.<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup> For example:</p>
+                <ul>
+                    <li>The <strong>Elm static type system</strong>, discussed in detail below, removes a whole category of surprises related to dynamic typing.</li>
+                    <li>The Elm Package Manager supports <strong>Enforced Semantic Versioning</strong>.<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup> There are no surprises in PATCH releases because version
+                        numbers are enforced by a script that scans libraries detecting, for example, removal or renaming of exposed functions.</li>
+                    <li><strong>Elm-UI</strong>, a library to render views that translate developers' intents into layouts in a clear manner, discussed in detail later.</li>
+                </ul>
+                <p>Languages with automatic type conversion, like JavaScript, can lead to surprises.<sup id="fnref:11"><a href="#fn:11" class="footnote-ref" role="doc-noteref">11</a></sup> What happens if we add a <em>number</em> and a
+                    <em>string</em> together? For example, <code>1</code> and <code>"2"</code>? Do we get <code>3</code>? Do we get <code>"12"</code>? Do we get an
+                    error? Do we get something else?</p>
+                <p>Elm, in contrast, is strongly and statically typed so cases like the one mentioned above are not possible. It is not even necessary to add types declarations because types are inferred by the Elm compiler. The type inference covers
+                    100% of the code, including all external libraries.</p>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/dynamic-vs-static.png" alt="Dynamic Typing vs Static Typing">
+                    <em>Dynamic Typing vs Static Typing, illustration by <a href="https://twitter.com/01k">Kolja Wilcke</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</em>
+                </p>
+                <p>If you need to create a quick proof of concept, dynamic typing may be faster and the puzzle does resemble a giraffe even if it contains mistakes. But for robust applications and correct puzzle solutions, static typing is the right
+                    way to go.</p>
+                <p>TypeScript, which adds optional static typing to JavaScript and is probably one of the best things to happen to JavaScript, can partially mitigate the issues with the JavaScript dynamic type system. But being a superset of
+                    JavaScript it needs to compromise on elegance and simplicity. For example, type declarations are optional (<em>any</em> as escape hatch), inference doesn’t cover all the code, it requires <em>type guards</em><sup id="fnref:12"><a
+                            href="#fn:12" class="footnote-ref" role="doc-noteref">12</a></sup>, and not all JavaScript libraries have type annotations.</p>
+                <h2 id="3-making-impossible-states-impossible">3. “Making impossible states impossible”</h2>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/penrose-triangle.jpg" alt="Penrose Triangle">
+                    <em>Penrose Triangle.</em><sup id="fnref:13"><a href="#fn:13" class="footnote-ref" role="doc-noteref">13</a></sup>
+                </p>
+                <p>The depth of the Elm type system allows us to model scenarios precisely, to <strong>make impossible states impossible</strong>.<sup id="fnref:14"><a href="#fn:14" class="footnote-ref" role="doc-noteref">14</a></sup> This is more a
+                    <strong>coding pattern</strong><sup id="fnref:15"><a href="#fn:15" class="footnote-ref" role="doc-noteref">15</a></sup> rather than a language feature, and it requires a fully-fledged type system to work.</p>
+                <p>To clarify, let’s make an example modeling the HTTP state with a <strong>type alias</strong><sup id="fnref:16"><a href="#fn:16" class="footnote-ref" role="doc-noteref">16</a></sup>:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token keyword">type</span> <span class="token keyword">alias</span> <span class="token constant">HttpState</span> <span class="token operator">=</span> 
+    <span class="token punctuation">{</span> <span class="token hvariable">loading</span> <span class="token operator">:</span> <span class="token constant">Bool</span>
+    <span class="token punctuation">,</span> <span class="token hvariable">error</span> <span class="token operator">:</span> <span class="token constant">Maybe</span> <span class="token constant">String</span>
+    <span class="token punctuation">,</span> <span class="token hvariable">success</span> <span class="token operator">:</span> <span class="token constant">Maybe</span> <span class="token constant">String</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>The <strong>cardinality</strong> (number of possible states) for this structure is 2 x 2 x 2 = 8 because both <strong>Bool</strong> and <strong>Maybe</strong><sup id="fnref:17"><a href="#fn:17" class="footnote-ref"
+                            role="doc-noteref">17</a></sup> have cardinality = 2.</p>
+                <p>But the possible states of the HTTP request are only three: <code>Loading</code>, <code>Error</code>, and <code>Success</code>. To make these extra five impossible states impossible, we can rewrite the code using a <strong>custom
+                        type</strong><sup id="fnref:18"><a href="#fn:18" class="footnote-ref" role="doc-noteref">18</a></sup>:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token keyword">type</span> <span class="token constant">HttpState</span>
+    <span class="token operator">=</span> <span class="token constant">Loading</span>
+    <span class="token operator">|</span> <span class="token constant">Error</span> <span class="token constant">String</span>
+    <span class="token operator">|</span> <span class="token constant">Success</span> <span class="token constant">String</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <h2 id="4-one-way-of-doing-things">4. One way of doing things</h2>
+                <p>One application of this principle<sup id="fnref:19"><a href="#fn:19" class="footnote-ref" role="doc-noteref">19</a></sup> is about finding the best solution to a
+                    problem and then enforcing it in the language.</p>
+                <p>For example:</p>
+                <ul>
+                    <li><strong>The adoption of The Elm Architecture</strong> as the standard way to structure web applications</li>
+                    <li>The linter <strong>elm-format is not configurable</strong>. Therefore, all Elm code is formatted using the same style. The end of the tab vs. space war.</li>
+                </ul>
+                <p>The principle guarantees consistency across codebases, even when they belong to different teams and organizations.</p>
+                <p>Other languages and frameworks follow different principles. For example, JavaScript follows the <strong>“One JavaScript”</strong> principle.<sup id="fnref:20"><a href="#fn:20" class="footnote-ref" role="doc-noteref">20</a></sup> It
+                    means that JavaScript is not versioned and is back compatible.</p>
+                <h2 id="5-stability">5. Stability</h2>
+                <p>A lot of work has been done to improve the Elm compiler, but the language per se has not undergone any major updates in more than four years.<sup id="fnref:21"><a href="#fn:21" class="footnote-ref" role="doc-noteref">21</a></sup>
+                    Moreover, no foreseeable updates are coming soon.<sup id="fnref:22"><a href="#fn:22" class="footnote-ref" role="doc-noteref">22</a></sup> The latest versions were mainly about improvements of the compiler’s performances and
+                    removal of features that were considered unnecessary or even detrimental, like the infix operator.<sup id="fnref:23"><a href="#fn:23" class="footnote-ref" role="doc-noteref">23</a></sup></p>
+                <p>And this is great because we can concentrate on building great products instead of spending time updating our code to the latest release.</p>
+                <blockquote>
+                    <p>“It seems that perfection is attained not when there is nothing more to add, but when there is nothing more to remove”</p>
+                    <p><strong>– Antoine de Saint Exupéry</strong></p>
+                </blockquote>
+                <p>The core modules are also very stable. Most of the action nowadays is happening in non-core modules and toolings.<sup id="fnref:24"><a href="#fn:24" class="footnote-ref" role="doc-noteref">24</a></sup></p>
+                <p>We started writing Elm in version 0.18, and the transition to version 0.19<sup id="fnref:25"><a href="#fn:25" class="footnote-ref" role="doc-noteref">25</a></sup>
+                    was very smooth. We had more issues with the update of the HTTP library<sup id="fnref:26"><a href="#fn:26" class="footnote-ref" role="doc-noteref">26</a></sup>
+                    when, for lack of internal communication, one of our in-house dependencies was suddenly updated to HTTP 2.0, forcing us to refresh all the rest of the code in a short time.</p>
+                <h2 id="6-functional-programming">6. Functional programming</h2>
+                <p>Functional programming<sup id="fnref:27"><a href="#fn:27" class="footnote-ref" role="doc-noteref">27</a></sup> is on the rise again! Maybe we are already in the
+                    middle of a third paradigm shift.<sup id="fnref:28"><a href="#fn:28" class="footnote-ref" role="doc-noteref">28</a></sup></p>
+                <blockquote>
+                    <p>“No matter what language you work in, programming in a functional style provides benefits. You should do it whenever it is convenient, and you should think hard about the decision when it isn’t convenient.”</p>
+                    <p><strong>– John Carmack <sup id="fnref:29"><a href="#fn:29" class="footnote-ref" role="doc-noteref">29</a></sup></strong></p>
+                </blockquote>
+                <p>Functional programming is good at handling complexity using <strong>function composition</strong>, splitting difficult problems into manageable problems. Then the functions that solve these manageable problems are composed together
+                    to solve the original difficult problem.</p>
+                <p>Functions obtained with this process tend to be small, increasing their reusability, maintainability, and readability.</p>
+                <p>An interesting fact is that Elm is acting, for many developers, as a bridge into Functional Programming because it is simpler to learn than other functional languages.</p>
+                <p>Recently several new functional programming languages have appeared: <a href="https://youtu.be/ceynSTa1dV4">Gleam</a>, <a href="https://youtu.be/gCWtkvDQ2ZI">Unison</a>, <a href="https://youtu.be/ZnYa99QoznE?t=4765">Roc</a>, <a
+                        href="https://koka-lang.github.io/">Koka</a>, <a href="https://github.com/moonad/Formality">Formality</a>.</p>
+                <p>It is an exciting moment for functional programming.</p>
+                <h3 id="currying">Currying</h3>
+                <p>Currying is a characteristic that is found in many functional languages. In Elm all functions are curried. Currying means converting a function that takes multiple arguments into a sequence of functions that take a single
+                    argument:<sup id="fnref:30"><a href="#fn:30" class="footnote-ref" role="doc-noteref">30</a></sup></p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">add</span> <span class="token hvariable">a</span> <span class="token hvariable">b</span> <span class="token operator">=</span> <span class="token hvariable">a</span> <span class="token operator">+</span> <span class="token hvariable">b</span> <span class="token comment">-- &lt;function&gt; : number -&gt; number -&gt; number</span>
+<span class="token hvariable">add</span> <span class="token number">1</span>           <span class="token comment">-- &lt;function&gt; : number -&gt; number</span>
+<span class="token hvariable">add</span> <span class="token number">1</span> <span class="token number">2</span>         <span class="token comment">-- 3 : number</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>The main advantage of currying is the increased flexibility in combining functions, like a puzzle game done with type signatures.<sup id="fnref:31"><a href="#fn:31" class="footnote-ref" role="doc-noteref">31</a></sup> For example,
+                    if you need to add 10 to the items of a list, you can write, using the
+                    <code>add</code> function defined above:
+                </p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">List.map</span> <span class="token punctuation">(</span><span class="token hvariable">add</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token comment">-- Gives [11,12,13]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <h2 id="7-enforced-discipline">7. Enforced discipline</h2>
+                <p>Pure functional languages motivate programmers to think better about the programs they are building. Although the initial development time can increase with such restrictions, the increased maintainability can compensate for the
+                    effort.</p>
+                <p>Elm enforces discipline on developers rather than letting developers be disciplined on their own. This fact, in conjunction with other characteristics, makes Elm a good fit for large front-end teams.</p>
+                <blockquote>
+                    <p>“Everything that is syntactically legal will eventually end up in your codebase”</p>
+                    <p><strong>– John Carmack <sup id="fnref:32"><a href="#fn:32" class="footnote-ref" role="doc-noteref">32</a></sup></strong></p>
+                </blockquote>
+                <p>Another example of enforced discipline is that it is not possible to include JavaScript code in Elm libraries.<sup id="fnref:33"><a href="#fn:33" class="footnote-ref" role="doc-noteref">33</a></sup> This fact means that the Elm
+                    guarantees, like no <em>runtime errors</em>, are also valid for your dependencies.</p>
+                <h2 id="8-learnability">8. Learnability</h2>
+                <p>Elm is beginner-friendly. It doesn’t mean that Elm is not sophisticated enough. It means that it is well designed. There are both simple constructs for beginners and complex constructs for masters. Complexity gets introduced
+                    gradually.<sup id="fnref:34"><a href="#fn:34" class="footnote-ref" role="doc-noteref">34</a></sup></p>
+                <p>Moreover, during its evolution, features that created confusion and were not important have been removed or modified, transforming it into a lean language that is easy to learn.<sup id="fnref:35"><a href="#fn:35"
+                            class="footnote-ref" role="doc-noteref">35</a></sup></p>
+                <p>To write a web application in Elm you don’t need to be an expert in JavaScript, CSS, or HTML.</p>
+                <p>Setting up a development environment is also simple because all tools usually needed in a “modern web” setup, like bundlers, linters, and web frameworks, in Elm are either embedded or unnecessary.<sup id="fnref:36"><a href="#fn:36"
+                            class="footnote-ref" role="doc-noteref">36</a></sup></p>
+                <p>A beginner Elm developer, in our experience, can be productive in a couple of weeks and can master the language in a couple of months.</p>
+                <h2 id="9-compiler-as-assistant">9. Compiler as assistant</h2>
+                <p>The Elm compiler can statically analyze the code for inconsistencies and provide precise feedback to the programmer.<sup id="fnref:37"><a href="#fn:37" class="footnote-ref" role="doc-noteref">37</a></sup></p>
+                <p>This feature is so crucial that it inspired a new coding style: <strong>Compiler Driven Development</strong>. In short: change parts of the code and then let the compiler errors guide you in the rest of the task. Then rinse and
+                    repeat.<sup id="fnref:38"><a href="#fn:38" class="footnote-ref" role="doc-noteref">38</a></sup></p>
+                <p>When Compiler Driven development<sup id="fnref:39"><a href="#fn:39" class="footnote-ref" role="doc-noteref">39</a></sup> involves defining type signatures first,
+                    we enter the realm of <strong>Type Driven Development</strong>.<sup id="fnref:40"><a href="#fn:40" class="footnote-ref" role="doc-noteref">40</a></sup></p>
+                <blockquote>
+                    <p>“If it compiles, it works” <strong><sup id="fnref:41"><a href="#fn:41" class="footnote-ref" role="doc-noteref">41</a></sup></strong></p>
+                </blockquote>
+                <p>Best practices should be automated as much as possible and the Elm compiler is playing an important role in this direction.</p>
+                <p>The compiler guarantees that all edge cases are covered, something difficult to achieve with hand-made unit tests. Another advantage of the compiler static analysis is that it is extremely fast and can provide the exact location of
+                    errors.</p>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/john-carmack-on-errors.png" alt="John Carmack on Elm Errors">
+                    The Elm compiler produces <strong>state-of-the-art error messages</strong> and its high standard of quality is now an inspiration for other designers of languages too.<sup id="fnref:42"><a href="#fn:42" class="footnote-ref"
+                            role="doc-noteref">42</a></sup></p>
+                <h2 id="10-elm-as-an-influencer">10. Elm as an influencer</h2>
+                <p>Most technologies get influenced by existing ideas in one way or another. Elm, for example, was influenced by Haskell, Standard ML, OCaml, and F#.</p>
+                <p>On the other side, Elm is influencing the front-end community and the programming industry in general, thanks to its innovative ideas.</p>
+                <p>For example:</p>
+                <ul>
+                    <li>
+                        <p>Redux, the React state management system, was inspired by The Elm Architecture.<sup id="fnref:43"><a href="#fn:43" class="footnote-ref" role="doc-noteref">43</a></sup></p>
+                    </li>
+                    <li>
+                        <p>These are other UI frameworks and libraries inspired by The Elm Architecture: <a href="https://elmish.github.io/elmish/">Elmish</a> | <a href="https://github.com/hydux/hydux">Hydux</a> | <a
+                                href="https://hyperapp.dev/">Hyperapp</a> | <a href="https://dvajs.com/">DvaJS</a> | <a href="https://github.com/hecrj/iced">Iced</a> | <a href="https://haskell-miso.org/">Miso</a> | <a
+                                href="https://github.com/antoyo/relm">Realm</a> | <a href="https://crates.io/crates/yew/0.1.0">Yew</a> | <a href="https://fsbolero.io/">Bolero</a> | <a
+                                href="https://github.com/OvermindDL1/bucklescript-tea">Bucklescript-tea</a> | <a href="https://fsprojects.github.io/Fabulous/">Fabulous</a> | <a href="https://github.com/rizumita/Selm">Selm</a> | <a
+                                href="https://github.com/inamiy/SwiftElm">SwiftElm</a> | <a href="https://github.com/chriseidhof/tea-in-swift">Tea-in-swift</a> | <a href="https://github.com/guidomb/Portal">Portal</a> | <a
+                                href="https://github.com/momentumworks/swift-elm">Swift-elm</a> | <a href="https://github.com/inamiy/Harvest">Harvest</a> | <a
+                                href="https://github.com/paldepind/functional-frontend-architecture">Functional-frontend-architecture</a> | <a href="https://github.com/sindreij/willow">Willow</a> | <a href="https://github.com/seed-rs/seed">Seed</a> |
+                            <a href="https://act-framework.github.io/act/">Act</a>.
+                        </p>
+                    </li>
+                    <li>
+                        <p>There are also several programming languages influenced by Elm: <a href="https://youtu.be/ZnYa99QoznE?t=4792">Roc</a> | <a href="https://youtu.be/ceynSTa1dV4">Gleam</a> | <a href="https://darklang.com/">Dark</a> | <a
+                                href="https://www.play-lang.dev/">Play</a>.</p>
+                    </li>
+                    <li>
+                        <p>The quality of error messages provided by the Elm compiler propelled efforts by several languages to improve their error messaging system.</p>
+                    </li>
+                </ul>
+                <p>We now use Elm because we believe it is one of the best options for web development, and the number of tools inspired by it is a testament to its qualities. At the same time, we are keeping an eye on what is happening in the field,
+                    and we are not concerned about switching if something better becomes available.</p>
+                <p>Considering how influential Elm is and the general trend toward Functional Programming, it seems that this “something better” will be something similar to Elm. So the transition, if any, should be smooth.<sup id="fnref:44"><a
+                            href="#fn:44" class="footnote-ref" role="doc-noteref">44</a></sup></p>
+                <h2 id="11-the-elm-architecture">11. The Elm Architecture</h2>
+                <p><strong>The Elm Architecture</strong> is probably the most relevant and influential innovation of Elm.<sup id="fnref:45"><a href="#fn:45" class="footnote-ref" role="doc-noteref">45</a></sup> It is a <strong>unidirectional data
+                        flow</strong><sup id="fnref:46"><a href="#fn:46" class="footnote-ref" role="doc-noteref">46</a></sup> that helps to keep your application well organized. Also, it helps you to quickly understand applications built by other
+                    developers as this is the standard way to build applications in Elm.
+                </p>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/the-elm-architecture.svg" alt="The Elm Architecture, animated"> <br>
+                    <em>A simple representation of the unidirectional data flows in The Elm Architecture. (Source: The Elm Guide)</em><sup id="fnref:47"><a href="#fn:47" class="footnote-ref" role="doc-noteref">47</a></sup>
+                </p>
+                <p>There are three building blocks in The Elm Architecture:</p>
+                <ul>
+                    <li><code>Model</code> — the state of your application, the only thing that can mutate</li>
+                    <li><code>view</code> — a way to turn your state into HTML</li>
+                    <li><code>update</code> — a way to update your state based on the <code>Model</code> and the <em>messages</em></li>
+                </ul>
+                <p>If we zoom in on the <code>Elm</code> block in the diagram above, this is what we would see inside:</p>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/the-elm-architecture-animation.gif" alt="The Elm Architecture, animated">
+                    This animation shows in detail how the <strong>Elm runtime system</strong><sup id="fnref:48"><a href="#fn:48" class="footnote-ref" role="doc-noteref">48</a></sup>
+                    orchestrates the <strong>infinite loop</strong><sup id="fnref:49"><a href="#fn:49" class="footnote-ref" role="doc-noteref">49</a></sup> of an Elm application.</p>
+                <p>The <strong>Elm runtime system</strong>:</p>
+                <ul>
+                    <li>Waits for something to happen, for example, “a button is pressed”</li>
+                    <li>Converts the event into the appropriate message <code>Msg</code></li>
+                    <li>Sends <code>Msg</code> and <code>Model</code> to <code>update</code> that will return an updated <code>Model</code> and optional commands <code>Cmd</code>, for example, an HTTP request</li>
+                    <li>Sends <code>Cmd</code>, if any, to the <em>effects engine</em></li>
+                    <li>Sends the updated <code>Model</code> to <code>view</code> that will return new HTML</li>
+                    <li>Updates the DOM using the new HTML</li>
+                    <li>GOTO start</li>
+                </ul>
+                <h2 id="12-the-elm-debugger">12. The Elm debugger</h2>
+                <p>The built-in <strong>Elm debugger</strong><sup id="fnref:50"><a href="#fn:50" class="footnote-ref" role="doc-noteref">50</a></sup> is a useful tool to debug Elm
+                    applications. It shows the state of the application and keeps track of all the messages fired during the application’s life. It also gives you the ability to go back in time.<sup id="fnref:51"><a href="#fn:51" class="footnote-ref"
+                            role="doc-noteref">51</a></sup></p>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/debugger.gif" alt="The Elm Debugger"></p>
+                <h2 id="13-elm-ui-the-alternative-to-csshtml">13. Elm-UI, the alternative to CSS/HTML</h2>
+                <p><strong>Elm-UI</strong> is <strong>a new language for layout and interface</strong><sup id="fnref:52"><a href="#fn:52" class="footnote-ref" role="doc-noteref">52</a></sup> made by
+                    Matthew Griffith. It is a complete alternative to HTML and CSS. It is the most used non-core Elm library, and we use it in almost all of our projects.<sup id="fnref:53"><a href="#fn:53" class="footnote-ref"
+                            role="doc-noteref">53</a></sup></p>
+                <p>It applies the <a href="#2-principle-of-least-astonishment">Principle of least astonishment</a> seen earlier to the design of a web page. Your intents are
+                    translated clearly in the design, a rarity using CSS, making the design process fun and quick.</p>
+                <p>It sounds like magic. How does it work? Let’s briefly see what Elm-UI is doing behind the scenes.</p>
+                <p>In a regular Elm application, you would write your view using Elm functions. Note that Elm doesn’t have a separate templating language, <strong>the templating language for Elm is Elm</strong>.<sup id="fnref:54"><a href="#fn:54"
+                            class="footnote-ref" role="doc-noteref">54</a></sup></p>
+                <p>For example, this block of Elm code<sup id="fnref:55"><a href="#fn:55" class="footnote-ref" role="doc-noteref">55</a></sup></p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">div</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">[</span> <span class="token hvariable">p</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">[</span> <span class="token hvariable">text</span> <span class="token string">"Hi there!"</span> <span class="token punctuation">]</span>
+    <span class="token punctuation">,</span> <span class="token hvariable">img</span> <span class="token punctuation">[</span> <span class="token hvariable">src</span> <span class="token string">"photo.jpg"</span> <span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>generates this HTML</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-html line-numbers"><code class="language-html" data-lang="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Hi there!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>photo.jpg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>HTML</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>There is a one-to-one relationship between these two representations. So nothing special here.</p>
+                <p>Instead, using <strong>Elm-UI</strong>, you would write</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">column</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">[</span> <span class="token hvariable">paragraph</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">[</span> <span class="token hvariable">text</span> <span class="token string">"Hi there!"</span> <span class="token punctuation">]</span>
+    <span class="token punctuation">,</span> <span class="token hvariable">image</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">{</span> <span class="token hvariable">src</span> <span class="token operator">=</span> <span class="token string">"photo.jpg"</span>
+        <span class="token punctuation">,</span> <span class="token hvariable">description</span> <span class="token operator">=</span> <span class="token string">"Image description"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>And this will programmatically generate the following HTML (and CSS, omitted for brevity).<sup id="fnref:56"><a href="#fn:56" class="footnote-ref" role="doc-noteref">56</a></sup></p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-html line-numbers"><code class="language-html" data-lang="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hc s c wc ct cl<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>spacing-5-5 s p wf<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>s t wc hc<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Hi there!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>s e ic<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>s e<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>photo.jpg<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Image description<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>HTML</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Elm-UI</strong> did all the heavy lifting for us, adding styling and elements to ensure that the page looks exactly the way we meant (maybe not relevant in this trivial example but important for complex layouts). There are
+                    new semantic concepts, like <code>column</code> that don’t exist in HTML.</p>
+                <p>Moreover, <strong>Elm-UI</strong> ensures that our HTML is valid and accessible. For example, forcing us to add a description to the image and blocking us from adding children to the <code>img</code> element.<sup id="fnref:57"><a
+                            href="#fn:57" class="footnote-ref" role="doc-noteref">57</a></sup></p>
+                <p>For me, this felt like a breath of fresh air after years spent learning all sort of CSS tricks.<sup id="fnref:58"><a href="#fn:58" class="footnote-ref" role="doc-noteref">58</a></sup></p>
+                <h2 id="14-readability-and-elm-syntax">14. Readability and Elm syntax</h2>
+                <p>Functional languages, being declarative, allow us to concentrate on <strong>writing <em>what</em> and not <em>how</em></strong>. Hiding the <em>how</em> details make the code easier to read and understand, the “intentions” of the
+                    code became transparent.</p>
+                <p>In the Elm community, write <strong>readable code is considered a high priority</strong>. This fact is important because, as developers, we spend more time reading code than writing code.</p>
+                <p>Elm has an ML-style syntax, in contrast to the C-style syntax of Java, JavaScript, and other popular languages. It was a choice that traded familiarity with convenience and fitness,<sup id="fnref:59"><a href="#fn:59"
+                            class="footnote-ref" role="doc-noteref">59</a></sup> as sometimes <em>familiarity hides complexity</em>.<sup id="fnref:60"><a href="#fn:60" class="footnote-ref" role="doc-noteref">60</a></sup></p>
+                <p>What we like about this syntax is its simplicity. Compared to C-style syntax, most parentheses, keywords, and punctuations are not necessary.</p>
+                <p>For example, this is how we define <code>add</code>, a function that adds two numbers together:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">add</span> <span class="token hvariable">a</span> <span class="token hvariable">b</span> <span class="token operator">=</span> <span class="token hvariable">a</span> <span class="token operator">+</span> <span class="token hvariable">b</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <h3 id="pipe-operator">Pipe operator</h3>
+                <p>We like the pipe operator which is also present in other languages like Elixir and F#. It can help to deal with multiple parentheses or with data flows. Let’s consider this snippet that calls four nested functions:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">f</span> <span class="token punctuation">(</span> <span class="token hvariable">g</span> <span class="token punctuation">(</span> <span class="token hvariable">h</span> <span class="token punctuation">(</span> <span class="token hvariable">i</span> <span class="token number">7</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>It can be re-written with the pipe operator as:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">f</span> <span class="token operator">&lt;|</span> <span class="token hvariable">g</span> <span class="token operator">&lt;|</span> <span class="token hvariable">h</span> <span class="token operator">&lt;|</span> <span class="token hvariable">i</span> <span class="token number">7</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>The benefit is that we don’t need the closing parentheses anymore. With a reversed pipe operator, we can re-write it in a different style to make the data flow explicit:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token number">7</span>
+    <span class="token operator">|&gt;</span> <span class="token hvariable">i</span>
+    <span class="token operator">|&gt;</span> <span class="token hvariable">h</span>
+    <span class="token operator">|&gt;</span> <span class="token hvariable">g</span>
+    <span class="token operator">|&gt;</span> <span class="token hvariable">f</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <h3 id="pattern-matching">Pattern matching</h3>
+                <p>An example of pattern matching is the <code>case .. of</code> that allows us to branch based on the <strong>custom type</strong> variant. For example:</p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token keyword">type</span> <span class="token constant">Color</span> <span class="token operator">=</span> <span class="token constant">Red</span> <span class="token operator">|</span> <span class="token constant">Green</span> <span class="token operator">|</span> <span class="token constant">Blue</span>
+
+<span class="token hvariable">hex</span> <span class="token hvariable">color</span> <span class="token operator">=</span> 
+    <span class="token keyword">case</span> <span class="token hvariable">color</span> <span class="token keyword">of</span>
+        <span class="token constant">Red</span>   <span class="token operator">-&gt;</span> <span class="token string">"ff0000"</span>
+        <span class="token constant">Green</span> <span class="token operator">-&gt;</span> <span class="token string">"00ff00"</span>
+        <span class="token constant">Blue</span>  <span class="token operator">-&gt;</span> <span class="token string">"0000ff"</span>        
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>If we wanted to add a fourth variant to the color type, the compiler would force us to add that case to this construct – this is very useful.</p>
+                <h2 id="15-refactoring">15. Refactoring</h2>
+                <p>The idea that the <a href="#9-compiler-as-assistant">Elm compiler is like an assistant</a> and the fact that once the code compiles, it usually works makes
+                    refactoring a pleasant experience.</p>
+                <p>An additional factor that makes refactoring easy is that being a purely functional language, <strong>the order in which we write the code doesn’t matter</strong>.<sup id="fnref:61"><a href="#fn:61" class="footnote-ref"
+                            role="doc-noteref">61</a></sup></p>
+                <p>For example, in Elm, we can write:<sup id="fnref:62"><a href="#fn:62" class="footnote-ref" role="doc-noteref">62</a></sup></p>
+                <div class="highlight">
+                    <div class="code-toolbar">
+                        <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">b</span> <span class="token operator">=</span> <span class="token hvariable">a</span> <span class="token operator">+</span> <span class="token number">2</span>
+<span class="token hvariable">a</span> <span class="token operator">=</span> <span class="token number">1</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+                        <div class="toolbar">
+                            <div class="toolbar-item"><span>Elm</span></div>
+                            <div class="toolbar-item"><button type="button">Copy</button></div>
+                        </div>
+                    </div>
+                </div>
+                <p>Even if the two lines seem in the wrong order, it works well in Elm, but the same code will throw the error “<em>b</em> is not defined” in imperative languages.<sup id="fnref:63"><a href="#fn:63" class="footnote-ref"
+                            role="doc-noteref">63</a></sup></p>
+                <p>Refactoring became simpler because <strong>we can shuffle pieces of code around</strong> without warring.</p>
+                <p>In our largest project, we are in the middle of a third major refactoring iteration, and we have pieces of code that are still at the first iteration and some code in the second iteration. And all of our code works well together.
+                    We are now incrementally moving all our code toward the third iteration. In Elm, you don’t need to get things right from the beginning.</p>
+                <h2 id="16-hiring">16. Hiring</h2>
+                <p>Hiring for a language that is not mainstream has some downsides. For example, not many developers probably know it fluently.</p>
+                <p>However, the feeling, from engaging in the Elm slack channel, is that there are probably now more developers that know Elm compared to the number of available Elm job positions, making it possible to find developers that already
+                    master it.</p>
+                <p>In any case, <strong>learning Elm is a fast process</strong>. As already stated, our experience is that it takes a couple of weeks to be productive and a couple of months to master it.</p>
+                <p>As a result, rather than asking “How many applicants know X?” we should better ask “What does, knowing X, tell us about an applicant?”, focusing on engineers capable of adapting and learning new concepts.</p>
+                <h2 id="17-fast-performance-and-small-assets">17. Fast performance and small assets</h2>
+                <p>The Elm compiler can apply several optimizations specific to the fact that Elm is a purely functional language. This leads to several benefits, including:</p>
+                <ul>
+                    <li>The performance of Elm applications are among the fastest. Internally Elm uses the concept of a virtual DOM, similar to React. The speed of the Elm virtual DOM is comparable to Svelte, which uses a different mechanism to
+                        update the DOM.<sup id="fnref:64"><a href="#fn:64" class="footnote-ref" role="doc-noteref">64</a></sup></li>
+                    <li>The Elm compiler produces smaller assets compared to other frameworks. Among the various optimizations to achieve this result, there is the <strong>dead code elimination</strong> with granularity to the single function that
+                        works across the entire ecosystem. If you import a large package and use only one of the functions contained, the compiler will ensure that only that function ends up in your generated code.<sup id="fnref:65"><a href="#fn:65"
+                                class="footnote-ref" role="doc-noteref">65</a></sup></li>
+                </ul>
+                <p>The Elm compiler per se is also fast. Our bigger codebase contains ~66,500 lines of Elm code, and it compiles incrementally in 0.3 seconds and from scratch in 2.5 seconds.<sup id="fnref:66"><a href="#fn:66" class="footnote-ref"
+                            role="doc-noteref">66</a></sup></p>
+                <h1 id="what-we-dont-like-about-elm-1">What we don’t like about Elm</h1>
+                <h2 id="1-not-mainstream">1. Not mainstream</h2>
+                <p><img src="./Elm in Rakuten _ Rakuten Engineering Blog_files/escape.jpg" alt="Escape">
+                    <em>If many people believe something, does it make it true?</em> <sup id="fnref:67"><a href="#fn:67" class="footnote-ref" role="doc-noteref">67</a></sup>
+                </p>
+                <p>There are common issues with all technologies that are not mainstream. When they are not mainstream, it is hard to promote them, especially if decision-makers use the fallacious “appeal to popularity” argument. Something that goes
+                    along the lines of “The technology X is better than Y because it has more stars in Github”.<sup id="fnref:68"><a href="#fn:68" class="footnote-ref" role="doc-noteref">68</a></sup></p>
+                <p>We believe that arguments should be considered case by case. Sometimes not being mainstream does have related implications (see <a href="#3-reinventing-the-wheel">Reinventing the wheel</a>); other times is more nuanced than it
+                    seems (see <a href="#16-hiring">Hiring</a>); most of the times, not being mainstream is unrelated to good qualities.<sup id="fnref:69"><a href="#fn:69" class="footnote-ref" role="doc-noteref">69</a></sup></p>
+                <p>If you still need to be reassured, consider that, regardless of the popularity of Elm, many companies are using it, including several large companies like Microsoft, IBM, eBay, Ford, Amazon, Zalando, and Thoughtbot.<sup
+                        id="fnref:70"><a href="#fn:70" class="footnote-ref" role="doc-noteref">70</a></sup></p>
+                <h2 id="2-lack-of-googleable-resources">2. Lack of Googleable resources</h2>
+                <p>Asking an Elm question in Google does not always yield good results.</p>
+                <p>Most of the Elm public conversation happens in the Elm Slack channel<sup id="fnref:71"><a href="#fn:71" class="footnote-ref" role="doc-noteref">71</a></sup> that
+                    is not visible to the Google bots.</p>
+                <p>Also, another consequence is that the quantity of materials in the Stack Overflow website is limited. This fact is not always as bad as it seems.</p>
+                <p>Stack Overflow sometimes suffers from having information that is not updated, making it useless and occasionally even harmful.</p>
+                <p>In the Elm Slack channel, information is always fresh, and the community is very supportive. It is just not visible, so it requires extra effort to join the Slack channel.</p>
+                <h2 id="3-reinventing-the-wheel">3. Reinventing the wheel</h2>
+                <p>Because Elm is not a mainstream language, it is sometimes necessary to reinvent something that could otherwise have been acquired by adopting a different technology. For example, we wrote a library inspired by
+                    <em>react-jsonschema-form</em> to create HTML forms.<sup id="fnref:72"><a href="#fn:72" class="footnote-ref" role="doc-noteref">72</a></sup>
+                </p>
+                <p>This issue was more significant in the past because nowadays the number of Elm packages covers a wide spectrum of subjects.</p>
+                <h2 id="4-mindset-shift">4. Mindset shift</h2>
+                <p>Purely functional programming could be mind-bending and intimidating for a developer that has programmed only in an object-oriented style.</p>
+                <blockquote>
+                    <p>“Faced with the choice between changing one’s mind and proving that there is no need to do so, almost everyone gets busy on the proof.”</p>
+                    <p><strong>-~John Kenneth Galbraith</strong></p>
+                </blockquote>
+                <p>Some consider this to be a benefit as it brings you out of your comfort zone and makes you think differently about programming.</p>
+                <p>But for someone else is a burden and could discourage a team from adopting Elm.</p>
+                <h2 id="5-content-driven-static-websites">5. Content-driven static websites</h2>
+                <p>Elm is not a good fit to build static websites that are mostly content-driven. In these cases, an old server-side rendered website can be a better option.</p>
+                <p>On the other side, if you get to like Elm, it is hard to go back to plain JavaScript/HTML/CSS, so we experimented with Elm for static websites. There are several tools for static site generation. We used <em>elm-starter</em><sup
+                        id="fnref:73"><a href="#fn:73" class="footnote-ref" role="doc-noteref">73</a></sup>, a library that transforms an Elm website into a server-side rendered PWA
+                    that is also installable, works off-line, and works without JavaScript.</p>
+                <p>These characteristics help to achieve good Lighthouse scores and good search engine ranking (SEO).</p>
+                <h2 id="6-some-javascript-and-css-are-still-necessary">6. Some JavaScript and CSS are still necessary</h2>
+                <p>Ideally, we could build an application by just writing in the Elm language. But if you need to use a third-party library not converted to Elm, we still need to use JavaScript. Doing so means entering again into the realm of
+                    possible runtime errors.</p>
+                <p>Elm provides three ways to interact with external libraries: Flags, Ports, and Custom Elements.<sup id="fnref:74"><a href="#fn:74" class="footnote-ref" role="doc-noteref">74</a></sup> All of them require you to write some
+                    JavaScript.</p>
+                <p>In our case, for example, we must use a JavaScript library for handling payments.</p>
+                <p>The required CSS, while using the library <em>Elm-UI</em>, is limited. In our applications, we have small snippets of CSS that are mainly tricks to support IE11.</p>
+                <p>Related to this, Elm is probably not a good fit for short projects that require lots of integration with third-party JavaScript libraries.</p>
+                <h1 id="conclusion">Conclusion</h1>
+                <p>We mentioned some of the benefits of coding with Elm, or with a purely functional language for that matter. We also talked about the main issues.</p>
+                <p>The benefits are overwhelmingly in the majority, compared to the issues, and this is why we are happy with the choice we made.</p>
+                <blockquote>
+                    <p>“Then I came to Functional Programming … and programming was fun again!"</p>
+                    <p><strong>Rúnar Bjarnason<sup id="fnref:75"><a href="#fn:75" class="footnote-ref" role="doc-noteref">75</a></sup></strong></p>
+                </blockquote>
+                <p>A consequence of these technical benefits is the great feeling of relaxation, not being left alone, and not being afraid of breaking things.</p>
+                <p>Compared to the pre-Elm experience, coding is now more enjoyable and more productive! 🎉</p>
+                <section class="footnotes" role="doc-endnotes">
+                    <hr>
+                    <ol>
+                        <li id="fn:1" role="doc-endnote">
+                            <p><strong>Elm</strong> is a <strong>compiled, immutable, strongly statically typed, and purely functional</strong> programming language that compiles to JavaScript. JavaScript is a <strong>just-in-time compiled, weakly
+                                    dynamically typed, multi-paradigm</strong> programming language. To know more about Elm, a good start is the <a href="https://guide.elm-lang.org/">official guide</a>. If you are familiar with JavaScript you can
+                                check <a href="https://elm-lang.org/docs/from-javascript">From JavaScript?</a> which is a short comparison between the syntax of the two languages. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:2" role="doc-endnote">
+                            <p><a href="https://en.wikipedia.org/wiki/Pure_function">Pure functions</a> are those functions where the output only depends on the input and don’t have any side effects. <a href="#fnref:2" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:3" role="doc-endnote">
+                            <p>The <a href="https://css-tricks.com/introduction-elm-architecture-build-first-application/">Introduction to The Elm Architecture and How to Build our First Application</a> by James Kolce was the second part of a
+                                three-part series published on the <a href="https://css-tricks.com/">CSS-Tricks</a> website in 2017. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:4" role="doc-endnote">
+                            <p>The <a href="https://elm-lang.org/">Elm website</a> is the main source of information and documentation to start with Elm. A quote about <strong>runtime errors</strong> from the site: “<em>Elm uses type inference to
+                                    detect corner cases and give friendly hints. NoRedInk switched to Elm about two years ago, and 250k+ lines later, they still have not had to scramble to fix a confusing runtime exception in production.</em>” <a
+                                    href="#fnref:4" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:5" role="doc-endnote">
+                            <p>In the front-end, <strong>errors at runtime</strong> are errors that happen in the browser. These errors can completely halt the functionality of the website and you, as the creator, may not even know about them because
+                                they are happening on other peoples' devices. Some tools allow you to get notified when these errors happen. These errors are usually JavaScript errors, for example, trying to access values that are null or undefined.
+                                <a href="#fnref:5" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:6" role="doc-endnote">
+                            <p>Even if it is almost two years old now, some more details about the use of Elm in Rakuten can be found in my talk <a href="https://youtu.be/yH6o322S8XQ">Elm at large (companies)</a> given at the <strong>Oslo Elm Day
+                                    2019</strong> conference. <a href="#fnref:6" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:7" role="doc-endnote">
+                            <p>A quote from an in-depth piece by <strong>John Carmack</strong> that looks at <a href="https://www.gamasutra.com/view/news/169296/Indepth_Functional_programming_in_C.php">the value of using functional-style programming
+                                    with C++</a>. John Carmack is an independent AI researcher,
+                                consultant CTO at <strong>Oculus VR</strong>, and founder of <strong>Armadillo Aerospace</strong> and <strong>Id Software</strong>, where he was the lead programmer of the games <strong>Commander Keen</strong>,
+                                <strong>Wolfenstein 3D</strong>, <strong>Doom</strong>, and <strong>Quake</strong>. <a href="#fnref:7" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:8" role="doc-endnote">
+                            <p>The <a href="https://guide.elm-lang.org/effects/">Elm runtime system</a> is the part of the code in charge of directing the application. For example, it figures out how to render HTML, how to send an HTTP request,
+                                redirect users' clicks back into the Elm code, etc. <a href="#fnref:8" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:9" role="doc-endnote">
+                            <p>The <a
+                                    href="https://wiki.c2.com/?PrincipleOfLeastAstonishment#:~:text=The%20Principle%20of%20Least%20Astonishment,the%20operation%20and%20other%20clues.&amp;text=In%20addition%20to%20function%20naming,applies%20to%20user%20interface%20design.">Principle
+                                    of Least Astonishment</a> states that the result of performing some operation should be <strong>obvious</strong>, <strong>consistent</strong>, and <strong>predictable</strong>, based upon the name of the operation
+                                and other clues. <a href="#fnref:9" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:10" role="doc-endnote">
+                            <p>The Elm Package Manager allows you to check differences (functions added/removed/modified) in any published Elm package simply by running the command <code>elm diff</code> like in <code>elm diff elm/json 1.0.0
+                                    1.1.2</code>. Evan Czaplicki gives a live example of this feature in the video <a href="https://youtu.be/jl1tGiUiTtI">Convergent Evolution</a>. <a href="#fnref:10" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:11" role="doc-endnote">
+                            <p>There are several funny videos about this topic on YouTube. One of the most popular is probably <a href="https://youtu.be/2pL28CcEijU">What the… JavaScript?</a> by Kyle Simpsons <a href="#fnref:11"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:12" role="doc-endnote">
+                            <p><a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html">Type guards</a> are TypeScript expressions that perform a runtime check to discriminate between <em>custom types</em>. For example:</p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-typescript line-numbers"><code class="language-typescript" data-lang="typescript"><span class="token keyword">function</span> <span class="token function">isFish</span><span class="token punctuation">(</span>pet<span class="token operator">:</span> Fish <span class="token operator">|</span> Bird<span class="token punctuation">)</span><span class="token operator">:</span> pet <span class="token keyword">is</span> Fish <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>pet <span class="token keyword">as</span> Fish<span class="token punctuation">)</span><span class="token punctuation">.</span>swim <span class="token operator">!==</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>TypeScript</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>After that is possible to write code like:<div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-javascript line-numbers"><code class="language-javascript" data-lang="javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFish</span><span class="token punctuation">(</span>pet<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pet<span class="token punctuation">.</span><span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    pet<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>JavaScript</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>In Elm <em>type guards</em> are not needed, it is possible to just directly use a <a href="https://guide.elm-lang.org/types/pattern_matching.html">case .. of</a> construct<div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token keyword">case</span> <span class="token hvariable">pet</span> <span class="token keyword">of</span>
+    <span class="token constant">Fish</span> <span class="token hvariable">fish</span> <span class="token operator">-&gt;</span>
+        <span class="token hvariable">fish</span><span class="token punctuation">.</span><span class="token hvariable">swim</span>
+    
+    <span class="token constant">Bird</span> <span class="token hvariable">bird</span> <span class="token operator">-&gt;</span>
+        <span class="token hvariable">bird</span><span class="token punctuation">.</span><span class="token hvariable">fly</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Elm</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>The <strong>case .. of</strong> construct also guarantees that we are considering all possible custom types. <a href="#fnref:12" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:13" role="doc-endnote">
+                            <p>The <a href="https://en.wikipedia.org/wiki/Penrose_triangle">Penrose Triangle</a> is a triangular impossible object. Illustration made with Elm and <a
+                                    href="https://package.elm-lang.org/packages/evancz/elm-playground/latest/">Elm-Playground</a>, <a href="https://ellie-app.com/bZVgZf8GJvja1">here the source code</a>. <a href="#fnref:13" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:14" role="doc-endnote">
+                            <p>The concept of <strong>making impossible states impossible</strong> is well explained by <a href="https://youtu.be/IcgmSRJHu_8">Richard Feldman in his homonymous talk at Elm-conf 2016</a>. <a href="#fnref:14"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:15" role="doc-endnote">
+                            <p>These <a href="https://sporto.github.io/elm-patterns/index.html">coding patterns in Elm</a> are considered good practice. <a href="https://sporto.github.io/elm-patterns/basic/impossible-states.html">Making impossible
+                                    states impossible</a> is one of them. <a href="#fnref:15" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:16" role="doc-endnote">
+                            <p>A <a href="https://guide.elm-lang.org/types/type_aliases.html"><code>type alias</code></a> is a shorter name for a type. <a href="#fnref:16" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:17" role="doc-endnote">
+                            <p>The type <a href="https://guide.elm-lang.org/error_handling/maybe.html"><code>Maybe</code></a> is how Elm handles missing values because <strong>null</strong> or <strong>undefined</strong> don’t exist. Maybe is defined
+                                as </p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token keyword">type</span> <span class="token constant">Maybe</span> <span class="token hvariable">a</span> <span class="token operator">=</span> <span class="token constant">Just</span> <span class="token hvariable">a</span> <span class="token operator">|</span> <span class="token constant">Nothing</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Elm</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>The Elm compiler will refuse to compile until you handle all the cases where a value may be missing in your code. <a href="#fnref:17" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:18" role="doc-endnote">
+                            <p>As Evan Czaplicki put it, “<a href="https://guide.elm-lang.org/types/custom_types.html">Custom types are the most important feature in Elm</a>”. <a href="#fnref:18" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:19" role="doc-endnote">
+                            <p>This principle is also mentioned in the <a href="https://en.wikipedia.org/wiki/Zen_of_Python">Zen of Python</a>: “There should be one — and preferably only one — obvious way to do it.” <a href="#fnref:19"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:20" role="doc-endnote">
+                            <p>The <a href="https://2ality.com/2014/12/one-javascript.html">One JavaScript</a> principle is about removing versioning and being always back-compatible. This fact, combined with ten days of design and 25 years of
+                                back-compatibility, inevitably accumulated a large number of different ways of doing things. For example, defining a function can be done in <a
+                                    href="https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/">several different ways</a>. <a href="#fnref:20" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:21" role="doc-endnote">
+                            <p>The latest large change was the <a href="https://elm-lang.org/news/farewell-to-frp">Farewell to Functional Reactive Programming</a> in May 2016. Here a <a href="https://elm-lang.org/news">high-level picture of the
+                                    updates</a>. <a href="#fnref:21" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:22" role="doc-endnote">
+                            <p><a href="https://discourse.elm-lang.org/t/where-can-we-find-the-roadmap-of-elm/6038">Evan Czaplicki’s ideas about the future of Elm</a>. <a href="#fnref:22" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:23" role="doc-endnote">
+                            <p>The infix operator has been removed because it was leading to unreadable code due to the creation of fancy non-standard operators. This is a longer explanation of <a
+                                    href="https://gist.github.com/evancz/769bba8abb9ddc3bf81d69fa80cc76b1">why the infix operators were removed</a>. <a href="#fnref:23" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:24" role="doc-endnote">
+                            <p>The feed that shows all the <a href="https://elm-greenwood.com/">updates done on Elm packages</a> is a good way to measure the activity that is happening on Elm libraries. Again, this activity should not be confused
+                                with the adoption of the language. Stable libraries tend not to be updated often. You will seldom see a core library in the feed. Sometimes there are complaints about lack of transparency about the work done on the
+                                compiler and core modules. <a href="https://github.com/elm/expectations">Elm does not follow the standard “open source” culture in certain ways</a> and most of the core work is done on a private repository. If you are
+                                interested in supporting the language, the best way is by <a href="https://discourse.elm-lang.org/t/what-is-constructive-input/977">getting involved in its community and contributing to the ecosystem</a>. <a
+                                    href="#fnref:24" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:25" role="doc-endnote">
+                            <p>The <a href="https://elm-lang.org/news/small-assets-without-the-headache">update from version 0.18 to version 0.19</a> was mainly about the optimization of the compiler. <a href="#fnref:25" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:26" role="doc-endnote">
+                            <p><a href="https://github.com/elm/http/releases/tag/2.0.0">The update of the HTTP library</a> is probably the latest large update within the core modules. <a href="#fnref:26" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:27" role="doc-endnote">
+                            <p><strong>Functional programming</strong> is a programming paradigm where programs are constructed by applying and composing functions. It is a <strong>declarative</strong> programming paradigm based on a sequence of
+                                functions that only depend on each other in terms of arguments and return values. It looks something like this:</p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-text line-numbers"><code class="language-text" data-lang="text">func1 ( func2 ( func3 (...) ) )<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Text</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>By contrast, the <strong>procedural paradigm</strong> is based on a sequence of <strong>imperative</strong> commands that may implicitly alter the shared state. It looks something like this:<div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-text line-numbers"><code class="language-text" data-lang="text">proc() {
+    proc1();
+    proc2();
+    proc3();
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Text</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div> <a href="#fnref:27" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:28" role="doc-endnote">
+                            <p><a href="https://youtu.be/6YbK8o9rZfI?t=67">From Object Orient to Functional Programming</a>, talk by Richard Feldman about paradigm shifts. <a href="#fnref:28" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:29" role="doc-endnote">
+                            <p><a href="https://www.gamasutra.com/view/news/169296/Indepth_Functional_programming_in_C.php">In-depth: Functional programming in C++</a> by John Carmack. <a href="#fnref:29" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:30" role="doc-endnote">
+                            <p>Out of curiosity, the closest equivalent in JavaScript of the Elm function</p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">add</span> <span class="token hvariable">a</span> <span class="token hvariable">b</span> <span class="token operator">=</span> <span class="token hvariable">a</span> <span class="token operator">+</span> <span class="token hvariable">b</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Elm</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>that also supports currying, is<div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-javascript line-numbers"><code class="language-javascript" data-lang="javascript"><span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token parameter">a</span> <span class="token operator">=&gt;</span> <span class="token parameter">b</span> <span class="token operator">=&gt;</span> a <span class="token operator">+</span> b <span class="token comment">// a =&gt; b =&gt; a + b</span>
+<span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>                <span class="token comment">// b =&gt; a + b</span>
+<span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>             <span class="token comment">// 3</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>JavaScript</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>That is mostly syntactic sugar for<div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-javascript line-numbers"><code class="language-javascript" data-lang="javascript"><span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token parameter">a</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>JavaScript</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div> <a href="#fnref:30" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:31" role="doc-endnote">
+                            <p>Passing a smaller number of arguments to a function, like in <code>add 10</code>, is called <strong>partial application</strong> and it opens the door to interesting coding techniques. If you squint, it is like
+                                <em>dependency injection</em> where the <code>10</code> is the injected part. Scott Wlaschin explains this and other patterns in his talk <a href="https://youtu.be/srQt1NAHYC0?t=2077">Functional Design Patterns</a>. <a
+                                    href="#fnref:31" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:32" role="doc-endnote">
+                            <p>John Carmack during his <a href="https://youtu.be/Uooh0Y9fC_M?t=5488">Keynote</a> at QuakeCon 2013 <a href="#fnref:32" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:33" role="doc-endnote">
+                            <p>A loophole that allowed using JavaScript in libraries was <a href="https://discourse.elm-lang.org/t/native-code-in-0-19/826">closed in version 0.19</a>. <a href="#fnref:33" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:34" role="doc-endnote">
+                            <p>For example <em>sandbox</em>, <em>element</em>, <em>document</em>, and <em>application</em> in <a href="https://package.elm-lang.org/packages/elm/browser/latest/Browser">Elm-Browser</a>; <em>get</em>, <em>post</em>, and
+                                <em>request</em> in <a href="https://package.elm-lang.org/packages/elm/http/latest/Http">Elm-HTTP</a>; <em>picture</em>, <em>animation</em>, and <em>game</em> in <a
+                                    href="https://package.elm-lang.org/packages/evancz/elm-playground/latest/Playground">Elm-Playground</a>; etc. <a href="#fnref:34" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:35" role="doc-endnote">
+                            <p>Other features are simply not added as the design of Elm languages was focused on users. For example type classes. As Evan Czaplicki explains in <a href="https://youtu.be/oYk8CKH7OhE?t=2310">Let’s be mainstream!
+                                    User-focused design in Elm</a>, “If you are going to give away simplicity, you better be doing it for a very good reason”. <a href="#fnref:35" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:36" role="doc-endnote">
+                            <p>You can start experimenting with Elm using <a href="https://elmprogramming.com/elm-reactor.html">elm reactor</a>, a web server built-in the Elm compiler that automatically re-compiles your code every time you refresh
+                                the browser. For more advanced coding there is <a href="https://github.com/wking-io/elm-live">Elm-Live</a>, a web server that supports custom HTML and hot reload. <code>Elm-Live</code> is what we use for our team. You
+                                can also use the usual suspects, like Webpack or Parcel. <a href="#fnref:36" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:37" role="doc-endnote">
+                            <p>The idea of the <a href="https://elm-lang.org/news/compilers-as-assistants">Compiler as Assistant</a> was born together with Elm itself. In this article, Evan Czaplicki explains the further improvement in this direction
+                                done for version 0.16. <a href="#fnref:37" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:38" role="doc-endnote">
+                            <p><a href="https://medium.com/@dillonkearns/moving-faster-with-tiny-steps-in-elm-2e6a269e4efc">Moving Faster with Tiny Steps in Elm</a> by Dillon Kearns <a href="#fnref:38" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:39" role="doc-endnote">
+                            <p>Kevin Yank explains what is Compiler Driven Development <a href="https://youtu.be/kuOCx0QeQ5c?t=1402">in this video</a>. Louis Pilfold explains <a href="https://youtu.be/ceynSTa1dV4?t=987">how a compiler can be an
+                                    assistant during software development</a>, referring to BEAM, a language inspired by Elm. And this is yet <a href="https://youtu.be/jl1tGiUiTtI?t=1219">another sample of Compiler Driven Development</a> during one
+                                of the talks of Evan Czaplicki. <a href="#fnref:39" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:40" role="doc-endnote">
+                            <p><a href="https://www.idris-lang.org/">Idris</a> is probably the fittest language for Type Drive Development. Idris has the feature of <em><a
+                                        href="http://docs.idris-lang.org/en/latest/elaboratorReflection/holes.html">holes</a></em>, while Elm can use <em><a href="https://package.elm-lang.org/packages/elm/core/latest/Debug#todo">Debug.todo</a></em>.
+                                <a href="#fnref:40" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:41" role="doc-endnote">
+                            <p>This way of saying probably <a href="https://wiki.haskell.org/Why_Haskell_just_works">originated in Haskell</a> but it applies to Elm too. <a href="#fnref:41" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:42" role="doc-endnote">
+                            <p>“<a href="https://twitter.com/id_aa_carmack/status/735197548034412546">This should be an inspiration for every error message</a>”, John Carmack commenting on Elm error messages <a href="#fnref:42"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:43" role="doc-endnote">
+                            <p>The <a href="https://redux.js.org/understanding/history-and-design/prior-art">Prior Art</a> document of <strong>Redux</strong> explains the Elm influence in detail. <a href="#fnref:43" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:44" role="doc-endnote">
+                            <p><a href="https://clojurescript.org/">ClojureScript</a>, <a href="https://reasonml.github.io/">ReasonML</a>, and <a href="https://www.purescript.org/">PureScript</a> are three languages that have a similar concept to
+                                Elm. <a href="#fnref:44" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:45" role="doc-endnote">
+                            <p>Details about The Elm Architecture can be found in the <a href="https://guide.elm-lang.org/architecture/">official Elm Guide</a>. The Elm Architecture is the predominant way to build applications in Elm. Different
+                                variants are also possible. <a href="https://www.elm-spa.dev/guide">Elm-spa</a> by Ryan Haskell-Glatz is a tool that helps to create single-page applications and create extra abstraction above The Elm Architecture.
+                                Rémi Lefèvre built the <a href="https://github.com/gothinkster/realworld">RealWorld example app</a> using the <a
+                                    href="https://discourse.elm-lang.org/t/realworld-example-app-architected-with-the-effect-pattern/5753">Effect pattern</a>. <a href="#fnref:45" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:46" role="doc-endnote">
+                            <p>The Elm Architecture is based on <a href="https://youtu.be/jl1tGiUiTtI?t=470"><strong>unidirectional data flow</strong></a> (a.k.a. <strong>one-way data binding</strong>) like React, in contrast to the
+                                <strong>bidirectional data flow</strong> (a.k.a. <strong>two-way data binding</strong>) of frameworks like Angular, Vue, and Svelte (<a href="https://github.com/sveltejs/svelte/issues/54">in Svelte two-way binding can
+                                    be disabled</a>). There have been issues with two-way data binding. For example, the many-to-many dependencies between the view and the model can create an infinite loop of cascading updates. Another issue is the
+                                lack of control of the change detection mechanism. It is an implicit behavior that is not easy to control. Unidirectional data flow tends to be more predictable. <a href="#fnref:46" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a>
+                            </p>
+                        </li>
+                        <li id="fn:47" role="doc-endnote">
+                            <p>The illustration <strong>A simple representation of the Elm Architecture</strong> is from the as depicted in the <a href="https://guide.elm-lang.org/architecture/">Elm Guide</a> used under the <a
+                                    href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> <a href="https://github.com/evancz/guide.elm-lang.org/blob/master/LICENSE">license</a>. <a href="#fnref:47" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:48" role="doc-endnote">
+                            <p>When we write Elm code, 100% of our code is pure so there are no side effects. But without side effects, our application would just be a boring silent empty screen. The <strong>Elm runtime system</strong> is the part of
+                                the code that is in charge of the side-effects. In our code, we just request these side effects to be done and we wait for the outcomes. Examples of side effects are HTTP requests or DOM modifications. How do we do
+                                side effects while remaining pure? In Elm, there are two ways. For things like HTTP requests, for example, there are commands (<code>Cmd</code>), that are instructions, in the form of data, that we send as requests to
+                                the Elm runtime system. For changing the DOM, the way to do side effects is to take the entire state of the world as an argument and return a new version of it. So we can change the world (side effects) by remaining
+                                pure. The world in our case is the <strong>Model</strong> and the function that does that is the <strong>update</strong> function: <code>update: Msg -&gt; Model -&gt; (Model, Cmd msg)</code> (see <a
+                                    href="#11-the-elm-architecture">The Elm Architecture</a> for more details). The video <a href="https://youtu.be/fCoQb-zqYDI?t=42">What is IO
+                                    monad?</a> by Alexey Kutepov explains this concept in general terms. <a href="#fnref:48" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:49" role="doc-endnote">
+                            <p>If you are familiar with game development you can find similarities between <strong>The Elm Architecture</strong> and <strong>The Game Loop</strong>. The main difference is that usually games don’t wait for something to
+                                happen, but the loop keeps running all the time. When we develop games in Elm, we do the same using <a
+                                    href="https://package.elm-lang.org/packages/elm/browser/latest/Browser-Events#onAnimationFrame">onAnimationFrame</a> so that the loop keeps running with a usual speed of 60 times per second. <a href="#fnref:49"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:50" role="doc-endnote">
+                            <p>More about the <strong>Elm debugger</strong> in <a href="https://elm-lang.org/news/the-perfect-bug-report">The Perfect Bug Report</a> <a href="#fnref:50" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:51" role="doc-endnote">
+                            <p>The <strong>Elm debugger</strong> is usually disabled for applications that are released in production, but you can find an example of it in <a href="https://elmjapan.org/">elmjapan.org</a> where it has been kept active
+                                for educational purposes. <a href="#fnref:51" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:52" role="doc-endnote">
+                            <p>More information about <strong>Elm-UI</strong> in <a href="https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/">the module documentation</a>. <a href="#fnref:52" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:53" role="doc-endnote">
+                            <p>This <a href="https://elm.dmy.fr/">enhanced mirror of the Elm Package Manager</a> list packages in order of popularity. If we exclude the core library, the top 5 packages are: <a
+                                    href="https://elm.dmy.fr/packages/mdgriffith/elm-ui/latest/">Elm-UI</a> | <a href="https://elm.dmy.fr/packages/NoRedInk/elm-json-decode-pipeline/latest/">elm-json-decode-pipeline</a> | <a
+                                    href="https://elm.dmy.fr/packages/rtfeldman/elm-css/latest/">elm-css</a> | <a href="https://elm.dmy.fr/packages/avh4/elm-color/latest/">elm-color</a> | <a
+                                    href="https://elm.dmy.fr/packages/krisajenkins/remotedata/latest/">remotedata</a>. <a href="#fnref:53" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:54" role="doc-endnote">
+                            <p>Evan Czaplicki mentions that <strong>the templating language for Elm is Elm</strong> in the video <a href="https://youtu.be/jl1tGiUiTtI?t=371">Convergent Evolution</a> that compares Elm to React. <a href="#fnref:54"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:55" role="doc-endnote">
+                            <p>Note that <code>div</code>, <code>p</code>, and <code>img</code> are all functions that accept two lists, one for attributes and one for children elements. <code>text</code> and <code>src</code> are also functions. It
+                                may help to see the type signature of these functions to understand better: </p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">div</span>  <span class="token operator">:</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Attribute</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Html</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token constant">Html</span> <span class="token hvariable">msg</span>
+<span class="token hvariable">p</span>    <span class="token operator">:</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Attribute</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Html</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token constant">Html</span> <span class="token hvariable">msg</span>
+<span class="token hvariable">img</span>  <span class="token operator">:</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Attribute</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Html</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token constant">Html</span> <span class="token hvariable">msg</span>
+<span class="token hvariable">text</span> <span class="token operator">:</span> <span class="token constant">String</span> <span class="token operator">-&gt;</span> <span class="token constant">Html</span> <span class="token hvariable">msg</span>
+<span class="token hvariable">src</span>  <span class="token operator">:</span> <span class="token constant">String</span> <span class="token operator">-&gt;</span> <span class="token constant">Attribute</span> <span class="token hvariable">msg</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Elm</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div> <a href="#fnref:55" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:56" role="doc-endnote">
+                            <p>You can check the entire outcome of <strong>Elm-UI</strong> in this <a href="https://ellie-app.com/bWJZwXdFvtWa1">live example</a>. <a href="#fnref:56" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:57" role="doc-endnote">
+                            <p>We cannot add children to the HTML element <code>img</code> due to the definition of the <code>image</code> function itself</p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">image</span> <span class="token operator">:</span>
+    <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Attribute</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span>
+    <span class="token operator">-&gt;</span> <span class="token punctuation">{</span> <span class="token hvariable">src</span> <span class="token operator">:</span> <span class="token constant">String</span><span class="token punctuation">,</span> <span class="token hvariable">description</span> <span class="token operator">:</span> <span class="token constant">String</span> <span class="token punctuation">}</span>
+    <span class="token operator">-&gt;</span> <span class="token constant">Element</span> <span class="token hvariable">msg</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Elm</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>As you can see, differently from <code>img</code>, that was defined as<div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"
+                                        class="language-elm line-numbers"><code class="language-elm" data-lang="elm"><span class="token hvariable">img</span> <span class="token operator">:</span> 
+    <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Attribute</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span>
+    <span class="token operator">-&gt;</span> <span class="token constant">List</span> <span class="token punctuation">(</span><span class="token constant">Html</span> <span class="token hvariable">msg</span><span class="token punctuation">)</span> 
+    <span class="token operator">-&gt;</span> <span class="token constant">Html</span> <span class="token hvariable">msg</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>Elm</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>The function <code>image</code> accepts only one list, the attributes, but not the second list of children. <a href="#fnref:57" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:58" role="doc-endnote">
+                            <p>Before moving to <strong>Elm-UI</strong> we were avid consumers of <a href="https://css-tricks.com/">css-tricks.com</a>, an excellent source of CSS tricks and information related to web development. Ironically it was
+                                also the place where we learned the existence of Elm that led us to use <strong>Elm-UI</strong> and eventually made <strong>css-tricks.com</strong> way less relevant. <a href="#fnref:58" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:59" role="doc-endnote">
+                            <p>Evan Czaplicki explains the decision of using the ML-style syntax throughout the video <a href="https://youtu.be/jl1tGiUiTtI?t=384">Convergent Evolution</a>. <a href="#fnref:59" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:60" role="doc-endnote">
+                            <p><a href="https://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey/">Are we there yet?</a> 11mins. <a href="#fnref:60" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:61" role="doc-endnote">
+                            <p>Elm also doesn’t have <a href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting">hoisting</a>, the JavaScript mechanism where variable and function declarations are put into memory during the compile phase
+                                giving the impression that they are moved to the top of their scope before code execution. <a href="#fnref:61" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:62" role="doc-endnote">
+                            <p><a href="https://ellie-app.com/bS3bK8gnW8na1">The Elm code example is available here</a>. Another situation where the order matter is when mutability is in action, for example</p>
+                            <div class="highlight">
+                                <div class="code-toolbar">
+                                    <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4" class="language-javascript line-numbers"><code class="language-javascript" data-lang="javascript">a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> a <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">// Gives 6</span>
+
+<span class="token comment">// While</span>
+
+a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> a <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment">// Gives 5</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                                    <div class="toolbar">
+                                        <div class="toolbar-item"><span>JavaScript</span></div>
+                                        <div class="toolbar-item"><button type="button">Copy</button></div>
+                                    </div>
+                                </div>
+                            </div>These constructs don’t compile in Elm because all data is immutable. By the way, have you ever noted that with mutability, the <code>=</code> sign loses its mathematical meaning? <code>a = a + 2</code> is an
+                            impossible construct in mathematics. With immutability, it is still holding because you can only write <code>newA = a + 2</code>. <a href="#fnref:62" class="footnote-backref" role="doc-backlink">↩︎</a>
+                            <p></p>
+                        </li>
+                        <li id="fn:63" role="doc-endnote">
+                            <p><a href="https://jsfiddle.net/xsbhLm9z/">Live example in JavaScript</a> <a href="#fnref:63" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:64" role="doc-endnote">
+                            <p>Elm and Svelte performances are <a href="https://twitter.com/sveltejs/status/1138094066867089408">neck and neck</a> as it can be verified from the <a href="https://github.com/krausest/js-framework-benchmark">JavaScript
+                                    framework benchmark</a>. <a href="https://discourse.elm-lang.org/t/can-the-compiler-skip-virtual-dom/6300">This thread</a> has an interesting conversation about web frameworks performances. <a href="#fnref:64"
+                                    class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:65" role="doc-endnote">
+                            <p>The equivalent of <strong>dead code elimination</strong>, in JavaScript, is called <a href="https://webpack.js.org/guides/tree-shaking/">tree shaking</a> and it usually works at the granularity of modules instead of
+                                single functions. <a href="https://elm-lang.org/news/small-assets-without-the-headache">Other optimizations contribute to the small assets of Elm</a>. Our largest application of ~66,500 lines of Elm code is 188kb
+                                zipped, including the SVG assets, the extra JavaScript, and translations in several languages. <a href="#fnref:65" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:66" role="doc-endnote">
+                            <p>These numbers are calculated <a href="https://discourse.elm-lang.org/t/help-gather-data-on-build-times/4624">using this method</a> on a MacBook Pro 2.3GHz Quad-Core i7. <a href="#fnref:66" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:67" role="doc-endnote">
+                            <p>Appeal to popularity, or <a href="https://en.wikipedia.org/wiki/Argumentum_ad_populum">Argumentum ad populum</a>, is a fallacious argument that concludes that something must be true because many or most people believe
+                                it. Illustration made with Elm and <a href="https://package.elm-lang.org/packages/evancz/elm-playground/latest/">Elm-Playground</a>, <a href="https://ellie-app.com/bY2R6xF5mWda1">here the source code</a>. <a
+                                    href="#fnref:67" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:68" role="doc-endnote">
+                            <p>Evan Czaplicki in the talk <a href="https://youtu.be/uGlzRt-FYto?t=261">What is Success?</a> discusses this topic. <a href="#fnref:68" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:69" role="doc-endnote">
+                            <p>For example, did the object-oriented paradigm become mainstream for its inherently good qualities and its ability to deal with complex problems? Was it by chance? (As Richard Feldman suggests in his video, <a
+                                    href="https://youtu.be/QyJZzq0v7Z4?t=2069">Why Isn’t Functional Programming the Norm?</a>) Was it because it is an inferior paradigm (as Brian Will highlights in <a
+                                    href="https://youtu.be/QM1iUe6IofM">Object-Oriented Programming is Bad</a>) but Microsoft and the <a href="http://harmful.cat-v.org/software/OO_programming/why_oo_sucks">industry that created</a>, promoted it? <a
+                                    href="#fnref:69" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:70" role="doc-endnote">
+                            <p>Some of these companies are mentioned by Richard Feldman in the video <a href="https://youtu.be/sKxEwjKQ5zg?t=303">Building UIs in the Dark (aka Elm Programming)</a> and the list <a
+                                    href="https://github.com/jah2488/elm-companies">Elm companies</a>. <a href="#fnref:70" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:71" role="doc-endnote">
+                            <p>The <a href="https://elmlang.herokuapp.com/">Elm Slack channel</a> counts around 20,000 members. Another platform used by the Elm community is <a href="https://discourse.elm-lang.org/">discourse.elm-lang.org</a>. There
+                                is also a channel on the <a href="https://www.reddit.com/r/elm/">Reddit website</a> that tends to be unpleasant so not many Elm developers usually comment there. <a href="#fnref:71" class="footnote-backref"
+                                    role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:72" role="doc-endnote">
+                            <p>The library that we wrote is now <a href="https://package.elm-lang.org/packages/rakutentech/r10/latest/R10-Form">open source</a>. <a href="#fnref:72" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:73" role="doc-endnote">
+                            <p>These are the most common tools to generate static sites in Elm: <a href="https://package.elm-lang.org/packages/dillonkearns/elm-pages/latest/">elm-pages</a> | <a
+                                    href="https://github.com/alexkorban/elmstatic">elmstatic</a> | <a href="https://github.com/lucamug/elm-starter">elm-starter</a>. <a href="#fnref:73" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:74" role="doc-endnote">
+                            <p>Elm provides several methodologies to communicate with JavaScript. Here is <a href="https://guide.elm-lang.org/interop/">an introduction to JavaScript interoperability</a> with some <a
+                                    href="https://github.com/elm-community/js-integration-examples">examples</a>. <a href="#fnref:74" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                        <li id="fn:75" role="doc-endnote">
+                            <p><strong>Rúnar Bjarnason</strong> is an advocate of functional programming. He is the co-author of the Scala “Red book” and the creator of the programming language Unison. Unison, <a
+                                    href="https://www.unisonweb.org/"><em>“A friendly programming language from the future.”</em></a>, has similarities to Elm as they are both inspired by Haskell, as explained in the video <a
+                                    href="https://youtu.be/rp_Eild1aq8?t=248">Introduction to the Unison programming language</a>. <a href="#fnref:75" class="footnote-backref" role="doc-backlink">↩︎</a></p>
+                        </li>
+                    </ol>
+                </section>
+
+            </article>
+
+
+
+
+
+
+
+
+
+
+        </section>
+
+
+        <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/progressBar.js"></script>
+
+
+
+    </div>
+
+
+    <script src="./Elm in Rakuten _ Rakuten Engineering Blog_files/prism.js"></script>
+
+
+</body>
+
+</html>
