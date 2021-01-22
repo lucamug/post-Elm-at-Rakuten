@@ -84,7 +84,8 @@ snippets =
 a = a + 2;
 a = a * 3; // Gives 9
 
-// While
+// while, inverting the order of 
+// the 2nd and 3rd line:
 
 a = 1;
 a = a * 3;
@@ -123,21 +124,53 @@ a = a + 2; // Gives 5{{< /highlight >}}"""
             , gist = "c206d6c846267c1ef985a6e01c8b638d"
             }
           )
-        , ( "{snippet_example_currying.js}"
+        , ( "{snippet_example_currying_1.js}"
           , { code = """{{< highlight javascript >}}add = a => b => a + b // a => b => a + b
 add(1)                // b => a + b
 add(1)(2)             // 3{{< /highlight >}}"""
             , gist = "efe2bbac0cf1ec4b39fbc772d87378c1"
             }
           )
-        , ( "{snippet_}"
-          , { code = """ """
-            , gist = ""
+        , ( "{snippet_example_currying_2.js}"
+          , { code = """{{< highlight javascript >}}function add(a) {
+    return function(b) {
+        return a + b;
+    }
+}{{< /highlight >}}"""
+            , gist = "d67d7a3a424031ee88410f2e27dae2a0"
             }
           )
-        , ( "{snippet_}"
-          , { code = """ """
-            , gist = ""
+        , ( "{snippet_TypeSignatures.elm}"
+          , { code = """{{< highlight elm >}}div : List (Attribute msg) -> List (Html msg) -> Html msg
+
+text : String -> Html msg{{< /highlight >}}"""
+            , gist = "897f996bd5dc6466bdcef29e74c5e1a2"
+            }
+          )
+        , ( "{snippet_Img.elm}"
+          , { code = """{{< highlight elm >}}img : 
+    List (Attribute msg)
+    -> List (Html msg) 
+    -> Html msg{{< /highlight >}}"""
+            , gist = "79cae9a620e9301ac37891edef8f668a"
+            }
+          )
+        , ( "{snippet_Image.elm}"
+          , { code = """{{< highlight elm >}}image :
+    List (Attribute msg)
+    -> { src : String, description : String }
+    -> Element msg{{< /highlight >}}"""
+            , gist = "f914b5221f0786ac33e6e0434e1cf25d"
+            }
+          )
+        , ( "{snippet_separator_leading.css}"
+          , { code = """{{< highlight css >}}.parent
+    { height: 100%
+    ; display: flex
+    ; justify-content: center
+    ; align-items: center
+    }{{< /highlight >}}"""
+            , gist = "b4e1747c6adba97c0f32492bfb262baa"
             }
           )
         , ( "{snippet_}"
@@ -157,7 +190,7 @@ headerHugo : String
 headerHugo =
     """title: "Elm at Rakuten"
 date: 2021-01-12T00:00:00+09:00
-hero: https://lucamug.github.io/post-Elm-in-Rakuten/images/elm-in-rakuten.png
+hero: https://lucamug.github.io/post-Elm-in-Rakuten/images/elm-at-rakuten.png
 excerpt: "Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes."
 timeToRead: 5
 authors:
@@ -171,8 +204,13 @@ headerDev =
 published: false
 description: Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes.
 tags: elm, javascript, typescript, webdev
-cover_image: https://lucamug.github.io/post-Elm-in-Rakuten/images/elm-in-rakuten.png
+cover_image: https://lucamug.github.io/post-Elm-in-Rakuten/images/elm-at-rakuten.png
 series: Elm at Rakuten"""
+
+
+goToIndex : String
+goToIndex =
+    "\n\n[Index](#index) | [Top](#top)\n\n***\n\n"
 
 
 post : String
@@ -188,6 +226,10 @@ post =
            )
         ++ """
 ---
+
+*Jump to the [index](#index).*
+    
+***    
 
 In our team at Rakuten, **we have been using Elm[^elm] in production for almost two years now**. This post is about our story, the lessons we learned, and our likes and dislikes.
 
@@ -233,14 +275,14 @@ Fast forward one year (and move 9,000 kilometers to the right), and in the headq
 Several engineers were already pushing for a more functional-style way of writing code, and in a department heavily based on back-end APIs, there was a strong need for a decoupled way to write user interfaces.
 
 ### 🕒\u{3000}Two years later 
-Fast forward another couple of years, and here we are, with **several applications in production built in Elm for a total of ~100k lines of code**.[^oslo-elm-days]
+Fast forward another couple of years, and here we are, with **several applications in production built with Elm for a total of ~100k lines of code**.[^oslo-elm-days]
 
 [^oslo-elm-days]: Even if it is almost two years old now, some more details about the use of Elm at Rakuten can be found in my talk [Elm at large (companies)](https://youtu.be/yH6o322S8XQ) given at the **Oslo Elm Day 2019** conference.
 
 These are some of our public projects made in Elm:
 
 * A generic **authentication and registration system** used, among others, in the [Taiwanese marketplace](https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email&ui_locales=en-UK#/registration/1), and the [Rakuten Sport website](https://login.account.rakuten.com/sso/register?client_id=rakuten_sports&redirect_uri=https%3A%2F%2Fsports.rakuten.com%2F&response_type=code&scope=openid%2Bemail%2Bprofile&ui_locales=en-UK#/sign_in).
-* **R10**, a UI library: [Source Code](https://github.com/rakutentech/r10/) | [Demo](https://r10.netlify.app/) | [Editable demo](https://ellie-app.com/btv2tGK7tk8a1) | [Elm Package Manager](https://package.elm-lang.org/packages/rakutentech/r10/latest/).
+* **R10**, a UI library: [Source Code](https://github.com/rakutentech/r10/) | [Demo](https://r10.netlify.app/) | [Editable demo](https://ellie-app.com/c5SL2qqLZP2a1) | [Elm Package Manager](https://package.elm-lang.org/packages/rakutentech/r10/latest/).
 * **HTTP Trinity**, an HTTP library: [Source code](https://github.com/rakutentech/http-trinity) | [Demo](https://rakutentech.github.io/http-trinity/).
 * The **Rakuten Open Source website**: [Source Code](https://github.com/rakutentech/rakutentech.github.io) | [Website](https://rakutentech.github.io/).
 * A simple [404 error page](https://login.account.rakuten.com/) (The preceding link is broken to demonstrate the 404 error page).
@@ -259,11 +301,11 @@ These are some of our public projects made in Elm:
 
 
 
+***    
 
+# Index
 
-
-
-
+* [Top](#top)
 
 ### What we like about Elm
 
@@ -281,12 +323,12 @@ In no particular order.
 1. [Elm as an influencer](#10-elm-as-an-influencer)
 1. [The Elm Architecture](#11-the-elm-architecture)
 1. [The Elm debugger](#12-the-elm-debugger)
-1. [Elm-UI, the alternative to CSS/HTML](#13-elm-ui-the-alternative-to-csshtml)
+1. [Elm-UI, the alternative to CSS/HTML](#13-elmui-the-alternative-to-csshtml)
 1. [Readability and Elm syntax](#14-readability-and-elm-syntax)
 1. [Refactoring](#15-refactoring)
 1. [Hiring](#16-hiring)
 1. [Fast performance and small assets](#17-fast-performance-and-small-assets)
-1. [Content-driven static websites](#18-content-driven-static-websites)
+1. [Content-driven static websites](#18-contentdriven-static-websites)
 
 ### What we don't like about Elm
 
@@ -298,6 +340,7 @@ In no particular order.
 1. [Mindset shift](#4-mindset-shift)
 1. [Some JavaScript and CSS are still necessary](#5-some-javascript-and-css-are-still-necessary)
 
+* [Conclusion](#conclusion)
 
 
 
@@ -313,13 +356,14 @@ In no particular order.
 
 
 
-
-
+***    
 
 # What we like about Elm
 
-## 1. Controlled state
+***
 
+## 1. Controlled state
+        
 JavaScript lets us do what we want with the state of a program. This can be useful for a quick prototype, but it is the precursor of bugs because it is difficult to track and understand changes in global variables.
 
 > “A large fraction of the flaws in software development are due to programmers not fully understanding all the possible states their code may execute in”
@@ -335,7 +379,9 @@ The place where the state is, in Elm, is the `Model` and it is managed by the *E
 
 [^elm-runtime-system]: The [Elm runtime system](https://guide.elm-lang.org/effects/) is the part of the code in charge of directing the application. For example, it figures out how to render HTML, how to send an HTTP request, redirect users' clicks back into the Elm code, etc.  
 
-
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -385,8 +431,9 @@ TypeScript, which adds optional static typing to JavaScript and is probably one 
 
 [^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:{snippet_example_type_guard.js}After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
     
-
-
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -448,6 +495,9 @@ type HttpState
 
 [^custom-type]: As Evan Czaplicki put it, “[Custom types are the most important feature in Elm](https://guide.elm-lang.org/types/custom_types.html)”.
 
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -470,6 +520,10 @@ type HttpState
 
 
 ## 4. One way of doing things
+
+"""
+        ++ goToIndex
+        ++ """
 
 One application of this principle[^python] is about finding the best solution to a problem and then enforcing it in the language.
     
@@ -533,6 +587,9 @@ We started writing Elm in version 0.18, and the transition to version 0.19[^vers
 
 [^stability]: The latest large change was the [Farewell to Functional Reactive Programming](https://elm-lang.org/news/farewell-to-frp) in May 2016. Here a [high-level picture of the updates](https://elm-lang.org/news).
 
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -579,13 +636,9 @@ It is an exciting moment for functional programming.
 
 ### Currying
 
-Currying is a characteristic that is found in many functional languages. In Elm all functions are curried by default. Currying means converting a function that takes multiple arguments into a sequence of functions that take a single argument:[^currying-in-javascript]
+Currying is a characteristic that is found in many functional languages. In Elm, all functions are curried by default. Currying means converting a function that takes multiple arguments into a sequence of functions that take a single argument:[^currying-in-javascript]
     
-[^currying-in-javascript]: Out of curiosity, the closest equivalent in JavaScript of the Elm function {snippet_Elm_function.elm} that also supports currying, is {snippet_example_currying.js} That is mostly syntactic sugar for{{< highlight javascript >}}function add(a) {
-    return function(b) {
-        return a + b;
-    }
-}{{< /highlight >}}. To learn more about how *currying* and how functions are defined in Elm, I reccomend to read [Functions in Elm](https://gist.github.com/mauroc8/fdb9ac1e46639348549d1286215ee793).
+[^currying-in-javascript]: Out of curiosity, the closest equivalent in JavaScript of the Elm function {snippet_Elm_function.elm} that also supports currying, is {snippet_example_currying_1.js} That is mostly syntactic sugar for {snippet_example_currying_2.js} To learn more about how *currying* and how functions are defined in Elm, I recommend reading [Functions in Elm](https://gist.github.com/mauroc8/fdb9ac1e46639348549d1286215ee793).
 
 ```elm
 add a b = a + b -- <function> : number -> number -> number
@@ -600,6 +653,10 @@ List.map (add 10) [1, 2, 3] -- Gives [11,12,13]
 ```
 
 [^partial-application]: Passing a smaller number of arguments to a function, like in `add 10`, is called **partial application** and it opens the door to interesting coding techniques. If you squint, it is like *dependency injection* where the `10` is the injected part. Scott Wlaschin explains this and other patterns in his talk [Functional Design Patterns](https://youtu.be/srQt1NAHYC0?t=2077). 
+
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -634,6 +691,10 @@ Elm enforces discipline on developers rather than letting developers be discipli
 Another example of enforced discipline is that it is not possible to include JavaScript code in Elm libraries.[^loophole] This fact means that the Elm guarantees, like no *runtime errors*, are also valid for your dependencies.
 
 [^loophole]: A loophole that allowed using JavaScript in libraries was [closed in version 0.19](https://discourse.elm-lang.org/t/native-code-in-0-19/826).
+
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -671,6 +732,10 @@ Setting up a development environment is also simple because all tools usually ne
 [^built-in-tools]: You can start experimenting with Elm using [elm reactor](https://elmprogramming.com/elm-reactor.html), a web server built-in the Elm compiler that automatically re-compiles your code every time you refresh the browser. For more advanced coding there is [Elm-Live](https://github.com/wking-io/elm-live), a web server that supports custom HTML and hot reload. `Elm-Live` is what we use for our team. You can also use the usual suspects, like Webpack or Parcel.
 
 A beginner Elm developer, in our experience, can be productive in a couple of weeks and can master the language in a couple of months.
+
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -728,6 +793,9 @@ The Elm compiler produces **state-of-the-art error messages** and its high stand
     
 [^error-messages]: "[This should be an inspiration for every error message](https://twitter.com/id_aa_carmack/status/735197548034412546)", John Carmack commenting on Elm error messages
 
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -776,6 +844,9 @@ Considering how influential Elm is and the general trend toward Functional Progr
 
 [^other-options]: [ClojureScript](https://clojurescript.org/), [ReScript](https://rescript-lang.org/), and [PureScript](https://www.purescript.org/) are three languages that have a similar concept to Elm.
     
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -835,6 +906,10 @@ The **Elm runtime system**:
 * Updates the DOM using the new HTML
 * GOTO start
     
+"""
+        ++ goToIndex
+        ++ """
+
     
     
 
@@ -867,6 +942,10 @@ The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm appli
 
 ![The Elm Debugger](https://lucamug.github.io/post-Elm-in-Rakuten/images/debugger.gif)
 *The Elm debugger. From the left to the right: the history of messages; the current message and the model; the application.*
+
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -939,8 +1018,7 @@ First of all, Elm doesn't have a separate templating language, **the templating 
     
 For example, this block of Elm code that uses the standard Elm HTML library (not Elm-UI):[^html-in-elm]
 
-[^html-in-elm]: Note that `div` is a function that accepts two lists, one for attributes and one for children elements. `text` is also a function. It may help to see the type signature of these functions to understand better: {{< highlight elm >}}div  : List (Attribute msg) -> List (Html msg) -> Html msg
-text : String -> Html msg{{< /highlight >}}    
+[^html-in-elm]: Note that `div` is a function that accepts two lists, one for attributes and one for children elements. `text` is also a function. It may help to see the type signature of these functions to understand better: {snippet_TypeSignatures.elm}    
 
 ```elm
 div [] [ text "I'm centered! 🎉" ]
@@ -974,24 +1052,22 @@ el [centerX, centerY] <| text "I'm centered! 🎉"
 
 **Elm-UI** does all the heavy lifting for us, adding styling and elements to ensure that the page looks exactly the way we meant.[^moreover-elm-ui] The benefits of **Elm-UI** are more relevant in complex layouts than in this is a trivial example.
 
-[^moreover-elm-ui]: Moreover, **Elm-UI** ensures that our HTML is valid and accessible. For example, forcing us to add a description to the image and blocking us from adding children to the HTML `img` element. The `img` function, with the standard HTML Elm library, is defined as{{< highlight elm >}}img : 
-    List (Attribute msg)
-    -> List (Html msg) 
-    -> Html msg{{< /highlight >}}The second list is the one that allows creating children elements, producing invalid HTML. Using **Elm-UI**, we cannot add children to the HTML element `img` due to the definition of the `image` function itself:{{< highlight elm >}}image :
-    List (Attribute msg)
-    -> { src : String, description : String }
-    -> Element msg{{< /highlight >}}The function `image` doesn't accept a list of children, but just an argument containing `src` and `description`.
+[^moreover-elm-ui]: Moreover, **Elm-UI** ensures that our HTML is valid and accessible. For example, forcing us to add a description to the image and blocking us from adding children to the HTML `img` element. The `img` function, with the standard HTML Elm library, is defined as {snippet_Img.elm} The second list is the one that allows creating children elements, producing invalid HTML. Using **Elm-UI**, we cannot add children to the HTML element `img` due to the definition of the `image` function itself: {snippet_Image.elm} The function `image` doesn't accept a list of children, but just an argument containing `src` and `description`.
 
 With **Elm-UI**, the one-to-one mapping is not between the Elm code and the HTML/CSS anymore, but between the Elm code and the layout, making the outcome predictable.
 
 **Elm-UI** treats CSS/HTML as bytecode the same way that **Elm** treats Javascript as bytecode.[^css-as-bytecode]
 
-[^css-as-bytecode]: [CSS as Bytecode](https://youtu.be/bt1TzVngOqY) is exactly the title of one of the talk of Richard Feldman.
+[^css-as-bytecode]: [CSS as Bytecode](https://youtu.be/bt1TzVngOqY) is also the title of one of the talks of Richard Feldman.
 
-It feels like a breath of fresh air after years spent learning all sort of CSS tricks.[^css-tricks-irony]
+It feels like a breath of fresh air after years spent learning all sorts of CSS tricks.[^css-tricks-irony]
     
 [^css-tricks-irony]: Before moving to **Elm-UI** we were avid consumers of [css-tricks.com](https://css-tricks.com/), an excellent source of CSS tricks and information related to web development. Ironically it was also the place where we learned the existence of Elm that led us to use **Elm-UI** and eventually made **css-tricks.com** way less relevant.
     
+"""
+        ++ goToIndex
+        ++ """
+
      
 
 
@@ -1087,12 +1163,11 @@ trafficLights =
 
 This formatting style has several benefits, for example, the code looks more organized (all commas are aligned), and there are fewer merge conflicts.[^comma-leading]
 
-[^comma-leading]: Read more about the benefits of the **comma-leading lists** approach in [The Case for Comma-Leading Lists](https://dev.to/tao/the-case-for-comma-leading-lists-3n49). This approach applies to any list separator. For example, in CSS we could write:{{< highlight css >}}.parent
-    { height: 100%
-    ; display: flex
-    ; justify-content: center
-    ; align-items: center
-    }{{< /highlight >}}
+[^comma-leading]: Read more about the benefits of the **comma-leading lists** approach in [The Case for Comma-Leading Lists](https://dev.to/tao/the-case-for-comma-leading-lists-3n49). This approach applies to any list separator. For example, in CSS we could write: {snippet_separator_leading.css}
+
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -1140,6 +1215,9 @@ Refactoring became simpler because **we can shuffle pieces of code around** with
 
 In our largest project, we are in the middle of a third major refactoring iteration, and we have pieces of code that are still at the first iteration and some code in the second iteration. And all of our code works well together. We are now incrementally moving all our code toward the third iteration. In Elm, you don't need to get things right from the beginning.
     
+"""
+        ++ goToIndex
+        ++ """
     
     
     
@@ -1172,6 +1250,9 @@ In any case, **learning Elm is a fast process**. As already stated, our experien
 
 As a result, rather than asking “How many applicants know X?” we should better ask “What does, knowing X, tell us about an applicant?”, focusing on engineers capable of adapting and learning new concepts.    
     
+"""
+        ++ goToIndex
+        ++ """
     
     
     
@@ -1204,6 +1285,10 @@ The Elm compiler per se is also fast. Our bigger codebase contains ~66,500 lines
 
 [^compiler-performances]: These numbers are calculated [using this method](https://discourse.elm-lang.org/t/help-gather-data-on-build-times/4624) on a MacBook Pro 2.3GHz Quad-Core i7.
 
+"""
+        ++ goToIndex
+        ++ """
+
 
 
 
@@ -1228,6 +1313,10 @@ On the other side, if you get to like Elm, it is hard to go back to plain JavaSc
 
 These characteristics help to achieve good Lighthouse scores and good search engine ranking (SEO).
     
+"""
+        ++ goToIndex
+        ++ """
+
 
 
 
@@ -1244,6 +1333,8 @@ These characteristics help to achieve good Lighthouse scores and good search eng
 
 # What we don't like about Elm
 
+***
+
 ## 1. Not mainstream
 
 ![Escape](https://lucamug.github.io/post-Elm-in-Rakuten/images/escape.jpg)
@@ -1255,7 +1346,7 @@ There are common issues with all technologies that are not mainstream. When they
     
 [^what-is-success]: Evan Czaplicki in the talk [What is Success?](https://youtu.be/uGlzRt-FYto?t=261) discusses this topic.
 
-We believe that arguments should be considered case by case. Sometimes not being mainstream does have related implications (see [Reinventing the wheel](#3-reinventing-the-wheel)); other times is more nuanced than it seems (see [Hiring](#16-hiring)); most of the times, not being mainstream is unrelated to good qualities.[^oop]
+We believe that arguments should be considered case by case. Sometimes not being mainstream does have related implications (see [Reinventing the wheel](#3-reinventing-the-wheel)); other times is more nuanced than it seems (see [Hiring](#16-hiring)); most of the time, not being mainstream is unrelated to good qualities.[^oop]
     
 [^oop]: For example, did the object-oriented paradigm become mainstream for its inherently good qualities and its ability to deal with complex problems? Was it by chance? (As Richard Feldman suggests in his video, [Why Isn't Functional Programming the Norm?](https://youtu.be/QyJZzq0v7Z4?t=2069)) Was it because it is an inferior paradigm (as Brian Will highlights in [Object-Oriented Programming is Bad](https://youtu.be/QM1iUe6IofM)) but Microsoft and the [industry that created](http://harmful.cat-v.org/software/OO_programming/why_oo_sucks), promoted it?
     
@@ -1263,6 +1354,9 @@ If you still need to be reassured, consider that, regardless of the popularity o
 
 [^elm-usage]: Some of these companies are mentioned by Richard Feldman in the video [Building UIs in the Dark (aka Elm Programming)](https://youtu.be/sKxEwjKQ5zg?t=303) and the list [Elm companies](https://github.com/jah2488/elm-companies).
     
+"""
+        ++ goToIndex
+        ++ """
     
     
     
@@ -1302,6 +1396,9 @@ Other times, resources are scattered and are not published with good SEO. Take, 
 
 [^awesome-elm]: There is no lack of good resources to learn Elm. A good aggregator for these resources in the [Awesome-Elm](https://github.com/sporto/awesome-elm/blob/master/README.md). 
 
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -1332,6 +1429,9 @@ Because Elm is not a mainstream language, it is sometimes necessary to reinvent 
 
 This issue was more significant in the past because nowadays the number of Elm packages covers a wide spectrum of subjects.
 
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -1368,6 +1468,9 @@ Some consider this to be a benefit as it brings you out of your comfort zone and
 
 But for someone else is a burden and could discourage a team from adopting Elm. 
 
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -1404,6 +1507,10 @@ The required CSS, while using the library *Elm-UI*, is limited. In our applicati
 Related to this, Elm is probably not a good fit for short projects that require lots of integration with third-party JavaScript libraries.
     
 [^interop]: Elm provides several methodologies to communicate with JavaScript. Here is [an introduction to JavaScript interoperability](https://guide.elm-lang.org/interop/) with some [examples](https://github.com/elm-community/js-integration-examples).
+
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -1443,6 +1550,11 @@ The benefits are overwhelmingly in the majority, compared to the issues, and thi
 
 A consequence of these technical benefits is the great feeling of relaxation, not being left alone, and not being afraid of breaking things.
 
-Compared to the pre-Elm experience, coding is now more enjoyable and more productive! 🎉
+Compared to the pre-Elm experience, coding is now more enjoyable, more productive, and without runtime errors! 🎉
 
-[^fp-fun-again]: **Rúnar Bjarnason** is an advocate of functional programming. He is the co-author of the Scala “Red book” and the creator of the programming language Unison. Unison, [*“A friendly programming language from the future.”*](https://www.unisonweb.org/), has similarities to Elm as they are both inspired by Haskell, as explained in the video [Introduction to the Unison programming language](https://youtu.be/rp_Eild1aq8?t=248)."""
+[^fp-fun-again]: **Rúnar Bjarnason** is an advocate of functional programming. He is the co-author of the Scala “Red book” and the creator of the programming language Unison. Unison, [*“A friendly programming language from the future.”*](https://www.unisonweb.org/), has similarities to Elm as they are both inspired by Haskell, as explained in the video [Introduction to the Unison programming language](https://youtu.be/rp_Eild1aq8?t=248).
+    
+    
+    
+"""
+        ++ goToIndex
