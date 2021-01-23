@@ -200,7 +200,7 @@ draft: false"""
 
 headerDev : String
 headerDev =
-    """title: Elm at - Part 1
+    """title: Elm at
 published: false
 description: Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes.
 tags: elm, javascript, typescript, webdev
@@ -370,8 +370,7 @@ JavaScript lets us do what we want with the state of a program. This can be usef
 >
 > **-- John Carmack [^carmack-on-state]**
 
-[^carmack-on-state]: A quote from an in-depth piece by **John Carmack** that looks at [the value of using functional-style programming with C++](https://www.gamasutra.com/view/news/169296/Indepth_Functional_programming_in_C.php). John Carmack is an independent AI researcher,
-consultant CTO at **Oculus VR**, and founder of **Armadillo Aerospace** and **Id Software**, where he was the lead programmer of the games **Commander Keen**, **Wolfenstein 3D**, **Doom**, and **Quake**.
+[^carmack-on-state]: A quote from an in-depth piece by **John Carmack** that looks at [the value of using functional-style programming with C++](https://www.gamasutra.com/view/news/169296/Indepth_Functional_programming_in_C.php). John Carmack is an independent AI researcher, consultant CTO at **Oculus VR**, and founder of **Armadillo Aerospace** and **Id Software**, where he was the lead programmer of the games **Commander Keen**, **Wolfenstein 3D**, **Doom**, and **Quake**.
 
 **All functions in Elm must be pure**, so they cannot hold any state, and **all data must be immutable**. The entire state of your application needs to be stored in one place, by design, making your **application simpler to comprehend and easier to debug**.
 
@@ -521,10 +520,6 @@ type HttpState
 
 ## 4. One way of doing things
 
-"""
-        ++ goToIndex
-        ++ """
-
 One application of this principle[^python] is about finding the best solution to a problem and then enforcing it in the language.
     
 [^python]: This principle is also mentioned in the [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python): "There should be one — and preferably only one — obvious way to do it."
@@ -536,10 +531,13 @@ For example:
 
 The principle guarantees consistency across codebases, even when they belong to different teams and organizations.
 
-Other languages and frameworks follow different principles. For example, JavaScript follows the **“One JavaScript”** principle.[^one-javascript] It means that JavaScript is not versioned and is back compatible.
+Other languages and frameworks follow different principles. For example, JavaScript follows the **“One JavaScript”** principle.[^one-javascript] It means that JavaScript is not versioned and is back compatible. Back-compatibility is the precursor of "several ways of doing things."
 
 [^one-javascript]: The [One JavaScript](https://2ality.com/2014/12/one-javascript.html) principle is about removing versioning and being always back-compatible. This fact, combined with ten days of design and 25 years of back-compatibility, inevitably accumulated a large number of different ways of doing things. For example, defining a function can be done in [several different ways](https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/). 
     
+"""
+        ++ goToIndex
+        ++ """
 
 
 
@@ -678,7 +676,7 @@ List.map (add 10) [1, 2, 3] -- Gives [11,12,13]
 
 ## 7. Enforced discipline
 
-Pure functional languages motivate programmers to think better about the programs they are building. Although the initial development time can increase with such restrictions, the increased maintainability can compensate for the effort.
+Purely functional languages motivate programmers to think better about the programs they are building. Although the initial development time can increase with such restrictions, the increased maintainability compensate for the effort.
 
 Elm enforces discipline on developers rather than letting developers be disciplined on their own. This fact, in conjunction with other characteristics, makes Elm a good fit for large front-end teams.
     
@@ -876,7 +874,7 @@ Considering how influential Elm is and the general trend toward Functional Progr
         
 [^unidirectional-data-flow]: The Elm Architecture is based on [**unidirectional data flow**](https://youtu.be/jl1tGiUiTtI?t=470) (a.k.a. **one-way data binding**) like React, in contrast to the **bidirectional data flow** (a.k.a. **two-way data binding**) of frameworks like Angular, Vue, and Svelte ([in Svelte two-way binding can be disabled](https://github.com/sveltejs/svelte/issues/54)). There have been issues with two-way data binding. For example, the many-to-many dependencies between the view and the model can create an infinite loop of cascading updates. Another issue is the lack of control of the change detection mechanism. It is an implicit behavior that is not easy to control. Unidirectional data flow tends to be more predictable.
     
-![The Elm Architecture, animated](./images/the-elm-architecture.svg)
+![The Elm Architecture, animated](https://lucamug.github.io/post-Elm-in-Rakuten/images/the-elm-architecture.svg)
 *A simple representation of the unidirectional data flows in The Elm Architecture. (Source: The Elm Guide) [^representation-of-unidirectional-flow]*
     
 [^representation-of-unidirectional-flow]: The illustration **A simple representation of the Elm Architecture** is from the as depicted in the [Elm Guide](https://guide.elm-lang.org/architecture/) used under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) [license](https://github.com/evancz/guide.elm-lang.org/blob/master/LICENSE).
@@ -890,7 +888,7 @@ There are three building blocks in The Elm Architecture:
 If we zoom in on the `Elm` block in the diagram above, this is what we would see inside:        
 
 ![The Elm Architecture, animated](https://lucamug.github.io/post-Elm-in-Rakuten/images/the-elm-architecture-animation.gif)
-*How the **Elm runtime system**[^elm-runtime] orchestrates the **infinite loop**[^the-game-loop] of an Elm application using The Elm Architecture.* 
+*How the Elm runtime system[^elm-runtime] orchestrates the infinite loop[^the-game-loop] of an Elm application using The Elm Architecture.* 
     
 [^elm-runtime]: When we write Elm code, 100% of our code is pure so there are no side effects. But without side effects, our application would just be a boring silent empty screen. The **Elm runtime system** is the part of the code that is in charge of the side-effects. In our code, we just request these side effects to be done and we wait for the outcomes. Examples of side effects are HTTP requests or DOM modifications. How do we do side effects while remaining pure? In Elm, there are two ways. For things like HTTP requests, for example, there are commands (`Cmd`), that are instructions, in the form of data, that we send as requests to the Elm runtime system. For changing the DOM, the way to do side effects is to take the entire state of the world as an argument and return a new version of it. So we can change the world (side effects) by remaining pure. The world in our case is the **Model** and the function that does that is the **update** function: `update: Msg -> Model -> (Model, Cmd msg)` (see [The Elm Architecture](#11-the-elm-architecture) for more details). The video [What is IO monad?](https://youtu.be/fCoQb-zqYDI?t=42) by Alexey Kutepov explains this concept in general terms.
     
@@ -967,10 +965,9 @@ The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm appli
 
 ## 13. Elm-UI, the alternative to CSS/HTML
 
-**Elm-UI** is **a new language for layout and interface**[^elm-ui] made by 
-Matthew Griffith. It is a complete alternative to HTML and CSS. It is the most used non-core Elm library, and we use it in almost all of our projects.[^popular-packages]
+**Elm-UI** is **a new language for layout and interface**[^elm-ui]. It is a complete alternative to HTML and CSS. It is the most used non-core Elm library, and we use it in almost all of our projects.[^popular-packages]
     
-[^elm-ui]: More information about **Elm-UI** in [the module documentation](https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/).
+[^elm-ui]: **Elm-UI** is developed by Matthew Griffith. More information about **Elm-UI** in [the module documentation](https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/).
     
 [^popular-packages]: This [enhanced mirror of the Elm Package Manager](https://elm.dmy.fr/) list packages in order of popularity. If we exclude the core library, the top 5 packages are [Elm-UI](https://elm.dmy.fr/packages/mdgriffith/elm-ui/latest/) | [Elm-JSON-Decode-Pipeline](https://elm.dmy.fr/packages/NoRedInk/elm-json-decode-pipeline/latest/) | [Elm-CSS](https://elm.dmy.fr/packages/rtfeldman/elm-css/latest/) | [elm-color](https://elm.dmy.fr/packages/avh4/elm-color/latest/) | [Remotedata](https://elm.dmy.fr/packages/krisajenkins/remotedata/latest/).
     
@@ -1050,9 +1047,9 @@ el [centerX, centerY] <| text "I'm centered! 🎉"
 </div>
 ```
 
-**Elm-UI** does all the heavy lifting for us, adding styling and elements to ensure that the page looks exactly the way we meant.[^moreover-elm-ui] The benefits of **Elm-UI** are more relevant in complex layouts than in this is a trivial example.
+**Elm-UI** does all the heavy lifting for us, adding styling and elements to ensure that the page looks exactly the way we meant.[^moreover-elm-ui]
 
-[^moreover-elm-ui]: Moreover, **Elm-UI** ensures that our HTML is valid and accessible. For example, forcing us to add a description to the image and blocking us from adding children to the HTML `img` element. The `img` function, with the standard HTML Elm library, is defined as {snippet_Img.elm} The second list is the one that allows creating children elements, producing invalid HTML. Using **Elm-UI**, we cannot add children to the HTML element `img` due to the definition of the `image` function itself: {snippet_Image.elm} The function `image` doesn't accept a list of children, but just an argument containing `src` and `description`.
+[^moreover-elm-ui]: The benefits of **Elm-UI** are more relevant in complex layouts than in this is a trivial example. Moreover, **Elm-UI** ensures that our HTML is valid and accessible. For example, forcing us to add a description to the image and blocking us from adding children to the HTML `img` element. The `img` function, with the standard HTML Elm library, is defined as {snippet_Img.elm} The second list is the one that allows creating children elements, producing invalid HTML. Using **Elm-UI**, we cannot add children to the HTML element `img` due to the definition of the `image` function itself: {snippet_Image.elm} The function `image` doesn't accept a list of children, but just an argument containing `src` and `description`.
 
 With **Elm-UI**, the one-to-one mapping is not between the Elm code and the HTML/CSS anymore, but between the Elm code and the layout, making the outcome predictable.
 
@@ -1090,7 +1087,7 @@ It feels like a breath of fresh air after years spent learning all sorts of CSS 
 
 ## 14. Readability and Elm syntax
 
-Functional languages, being declarative, allow us to concentrate on **writing *what* and not *how***. Hiding the *how* details make the code easier to read and understand, the “intentions” of the code became transparent. 
+Functional languages, being declarative, allow us to concentrate on writing *what* and not *how*. Hiding the *how* details make the code easier to read and understand, the “intentions” of the code became transparent. 
 
 In the Elm community, writing **readable code is considered a high priority**. This fact is important because, as developers, we spend more time reading code than writing code.
     
@@ -1109,7 +1106,7 @@ add a b = a + b
 ```
 ### Pipeline operator
 
-We like the pipeline operator which is also present in other languages like Elixir, F#, and (maybe) JavaScript.[^javascript-pipeline] It can help to deal with multiple parentheses or with data flows. Let's consider this snippet that calls four nested functions:
+The pipeline operator, which is also present in other languages like Elixir, F#, and (maybe) JavaScript,[^javascript-pipeline] can help to deal with multiple parentheses or with data flows. Let's consider this snippet that calls four nested functions:
 
 [^javascript-pipeline]: The [pipeline proposal](https://github.com/tc39/proposal-pipeline-operator) is currently at stage 1 of the [TC39 proposal process](https://tc39.es/process-document/).
     
@@ -1123,7 +1120,9 @@ It can be re-written with the pipeline operator as:
 f <| g <| h <| i 7
 ```
 
-The benefit is that we don't need the closing parentheses anymore. With a reversed pipeline operator, we can re-write it in a different style to make the data flow explicit:
+The benefit of this style is that we don't need the closing parentheses anymore.
+    
+With a reversed pipeline operator, we can re-write it in a second style to make the data flow explicit:
     
 ```elm
 7
@@ -1558,3 +1557,6 @@ Compared to the pre-Elm experience, coding is now more enjoyable, more productiv
     
 """
         ++ goToIndex
+        ++ """
+### Notes
+"""
