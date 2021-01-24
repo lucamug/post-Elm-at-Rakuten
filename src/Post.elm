@@ -951,7 +951,7 @@ The **Elm runtime system**:
 
 ## 12. The Elm debugger
 
-The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm applications. It shows the state of the application and keeps track of all the messages fired during the application's life. It also gives you the ability to go back in time.[^elm-debugger-example]    
+The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm applications. It shows the state of the application and keeps track of all the messages fired during the application's life. It also gives you the ability to go back in time, crating an immediate connection to what we are coding.[^elm-debugger-example]    
     
 [^elm-debugger]: More about the **Elm debugger** in [The Perfect Bug Report](https://elm-lang.org/news/the-perfect-bug-report)
     
@@ -959,14 +959,14 @@ The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm appli
 
 ![The Elm Debugger]("""
         ++ imagesUrl
-        ++ """debugger.gif)
+        ++ """debugger-m.gif)
 *The Elm debugger. From the left to the right: the application; the history of messages; the current message and the model.*[^elm-debugger-demo]
 
 [^elm-debugger-demo]: [Demo](https://lucamug.github.io/mario/) and [source code](https://github.com/lucamug/mario/blob/master/src/Main.elm) of the application used to demonstrate the Elm Debugger. 
 
 How not to see a connection here with the famous talk "Inventing on Principle" by Bret Victor?[^bret-victor]
 
-[^bret-victor]: Bret Victor is an interface designer, computer scientist, and electrical engineer known for his talks on the future of technology. In his talk, [Inventing on Principle](https://youtu.be/PUv66718DII?t=871), Victor showed his vision about fixing the fundamentally broken way we make software. The vision, is short, is that "Creators need an immediate connection to what they’re creating." More about this in [The Coming Software Apocalypse](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) by James Somers.
+[^bret-victor]: Bret Victor is an interface designer, computer scientist, and electrical engineer known for his talks on the future of technology. In his talk, [Inventing on Principle](https://youtu.be/PUv66718DII?t=762), Victor showed his vision about fixing the fundamentally broken way we make software. The vision, is short, is that "Creators need an immediate connection to what they’re creating." More about this in [The Coming Software Apocalypse](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) by James Somers.
 
 """
         ++ goToIndex
