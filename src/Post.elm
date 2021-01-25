@@ -795,7 +795,9 @@ Best practices should be automated as much as possible and the Elm compiler is p
 
 [^variable-shadowing]: An example of **Elm making “best practices” the default**, is about **variable shadowing** (same variable name defined twice in an ambiguous way). While most linters produce warnings in case of variable shadowing, the Elm compiler generates an error and stops the compilation, until the variable shadowing issue is removed. More on this in the [Variable Shadowing](https://github.com/elm/compiler/blob/master/hints/shadowing.md) article.
 
-The compiler guarantees that all edge cases are covered, something difficult to achieve with hand-made unit tests. Another advantage of the compiler static analysis is that it is extremely fast and can provide the exact location of errors.
+The compiler guarantees that all edge cases are covered, something difficult to achieve with hand-made unit tests. Another advantage of the compiler static analysis is that it is extremely fast and can provide the exact location of errors.[^elm-review]
+
+[^elm-review]: To push the static analysis further, there are other tools that can be used, like [Elm-Review](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/).
 
 ![John Carmack on Elm Errors]("""
         ++ imagesUrl
@@ -964,7 +966,7 @@ The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm appli
 
 [^elm-debugger-demo]: [Demo](https://lucamug.github.io/mario/) and [source code](https://github.com/lucamug/mario/blob/master/src/Main.elm) of the application used to demonstrate the Elm Debugger. 
 
-How not to see a connection here with the famous talk "Inventing on Principle" by Bret Victor?[^bret-victor]
+This is similar to what Bret Victor showed in his famous talk "Inventing on Principle."[^bret-victor]
 
 [^bret-victor]: Bret Victor is an interface designer, computer scientist, and electrical engineer known for his talks on the future of technology. In his talk, [Inventing on Principle](https://youtu.be/PUv66718DII?t=762), Victor showed his vision about fixing the fundamentally broken way we make software. The vision, is short, is that "Creators need an immediate connection to what they’re creating." More about this in [The Coming Software Apocalypse](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) by James Somers.
 
@@ -1122,7 +1124,7 @@ In the Elm community, writing **readable code is considered a high priority**. T
     
 Elm has an ML-style syntax, in contrast to the C-style syntax of Java, JavaScript, and other popular languages. It was a choice that traded familiarity with convenience and fitness,[^ml-style] as sometimes *familiarity hides complexity*.[^familiarity-hides-complexity]
 
-[^familiarity-hides-complexity]: [Are we there yet?](https://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey/) 11mins.
+[^familiarity-hides-complexity]: Rich Hickey mention the idea that *familiarity hides complexity* in his talk [Are we there yet?](https://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey/) (11th minute) where he advocated for the reexamination of the basic principles of OOP.
     
 [^ml-style]: Evan Czaplicki explains the decision of using the ML-style syntax throughout the video [Convergent Evolution](https://youtu.be/jl1tGiUiTtI?t=384).
     
