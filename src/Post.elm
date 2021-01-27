@@ -205,12 +205,11 @@ draft: false"""
 
 headerDev : String
 headerDev =
-    """title: Elm at
+    """title: Elm
 published: false
 description: Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes.
 tags: elm, javascript, typescript, webdev
-cover_image: """ ++ imagesUrl ++ """elm-at-rakuten.png
-series: Elm at Rakuten"""
+cover_image: """ ++ imagesUrl ++ """elm-at-rakuten.png"""
 
 
 goToIndex : String
@@ -1278,7 +1277,9 @@ However, the feeling, from engaging in the Elm slack channel, is that there are 
 
 In any case, **learning Elm is a fast process**. As already stated, our experience is that it takes a couple of weeks to be productive and a couple of months to master it. 
 
-As a result, rather than asking “How many applicants know X?” we should better ask “What does, knowing X, tell us about an applicant?”, focusing on engineers capable of adapting and learning new concepts.    
+As a result, rather than asking “How many applicants know X?” we should better ask: “What does, knowing X, tell us about an applicant?” focusing on engineers that have the passion and are capable of adapting and learning new concepts.    
+
+Moreover, hiring for a minor technology can boost your brand as an innovative company, making you the coolest kid on the block.
     
 """
         ++ goToIndex
