@@ -206,7 +206,7 @@ draft: false"""
 headerDev : String
 headerDev =
     """title: Elm at Rakuten
-published: false
+published: true
 description: Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes.
 tags: elm, javascript, typescript, webdev
 cover_image: """ ++ imagesUrl ++ """elm-at-rakuten.png"""
