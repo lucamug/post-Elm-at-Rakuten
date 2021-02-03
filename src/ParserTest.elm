@@ -8,6 +8,8 @@ import Parser exposing (..)
 
 
 
+-- <\/?p>|<brs?\/?>|<\/?b>|<\/?strong>|<\/?i>|<\/?em>|<\/?s>|<\/?strike>|<\/?blockquote>|<\/?sub>|<\/?super>|<\/?h(1|2|3)>|<\/?pre>|<hrs?\/?>|<\/?code>|<\/?ul>|<\/?ol>|<\/?li>|<\/a>|<a[^>]+>|<img[^>]+\/?>
+--
 -- # Trivial
 --
 -- int    : Parser Int   --

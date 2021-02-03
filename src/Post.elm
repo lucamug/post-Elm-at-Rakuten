@@ -577,7 +577,7 @@ A lot of work has been done to improve the Elm compiler, but the language per se
 
 And this is great because we can concentrate on building great products instead of spending time updating our code to the latest release.
 
-[^roadmap]: [Evan Czaplicki's ideas about the future of Elm](https://discourse.elm-lang.org/t/where-can-we-find-the-roadmap-of-elm/6038).    
+[^roadmap]: [Evan Czaplicki's ideas about the future of Elm](https://github.com/elm/compiler/blob/master/roadmap.md).    
 
 [^infix-operator]: The infix operator has been removed because it was leading to unreadable code due to the creation of fancy non-standard operators. This is a longer explanation of [why the infix operators were removed](https://gist.github.com/evancz/769bba8abb9ddc3bf81d69fa80cc76b1).
 
