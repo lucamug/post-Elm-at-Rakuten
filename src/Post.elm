@@ -255,7 +255,7 @@ We were thinking: *“if we only could find a tool to enforce these rules so we 
 
 [^css-tricks]: The [Introduction to The Elm Architecture and How to Build our First Application](https://css-tricks.com/introduction-elm-architecture-build-first-application/) by James Kolce was the second part of a three-part series published on the [CSS-Tricks](https://css-tricks.com/) website in 2017.
 
-> "Elm guarantees no errors at runtime."
+> "A delightful language with no runtime exceptions."
 >
 > **-- The Elm website [^elm-website]**
 
