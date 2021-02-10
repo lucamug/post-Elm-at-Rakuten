@@ -432,9 +432,9 @@ Elm, in contrast, is strongly and statically typed so cases like the one mention
 
 If you need to create a quick proof of concept, dynamic typing may be faster and the puzzle does resemble a giraffe even if it contains mistakes. But for robust applications and correct puzzle solutions, static typing is the right way to go.
 
-TypeScript, which adds optional static typing to JavaScript and is probably one of the best things to happen to JavaScript, can partially mitigate the issues with the JavaScript dynamic type system. But being a superset of JavaScript it needs to compromise on elegance and simplicity. For example, type declarations are optional (*any* as escape hatch), inference doesn’t cover all the code, it requires *type guards*[^type-guards], and not all JavaScript libraries have type annotations.
+TypeScript, which adds optional static typing to JavaScript and is probably one of the best things to happen to JavaScript, can partially mitigate the issues with the JavaScript dynamic type system. But being a superset of JavaScript it needs to compromise on elegance and simplicity. It also has several "blind spots".[^blind-spots] For example, type declarations are optional (*any* as escape hatch), inference doesn’t cover all the code, it requires *type guards*,[^type-guards] JSON data is not type-checked, and not all JavaScript libraries have type annotations.
 
-
+[^blind-spots]: The article [TypeScript's Blind Spots](https://incrementalelm.com/tips/typescript-blind-spots/) by Dillon Kearns illustrates several weak points of TypeScript.
 
 [^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:{snippet_example_type_guard.js}After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
     
