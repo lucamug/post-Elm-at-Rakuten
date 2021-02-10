@@ -294,6 +294,10 @@ These are some of our public projects made in Elm:
 * A simple [404 error page](https://login.account.rakuten.com/) (The preceding link is broken to demonstrate the 404 error page).
 * An [informative page about security](https://static.id.rakuten.co.jp/static/about_security/jpn/), in Japanese.
 
+![Credit Card Demo]("""
+        ++ imagesUrl
+        ++ """credit-card-demo.png)
+*[Example of a credit card form](https://r10.netlify.app/form_example_credit_card/) made using the R10 library.*
 
 
 
@@ -417,13 +421,13 @@ One of the ideas of Elm is that the outcome of the code should be predictable, w
 
 Languages with **automatic type conversion** (also called **implicit type casting**), like JavaScript, can lead to surprises.[^funny-youtube-videos] What happens if we add a *number* and a *string* together? For example, `1` and `"2"`? Do we get `3`? Do we get `"12"`? Do we get an error? Do we get something else?
 
-Elm, in contrast, is strongly and statically typed so cases like the one mentioned above are not possible.[^implicit-casts] It is not even necessary to add *types annotations*[^type-annotations] because types are inferred by the Elm compiler. The type inference covers 100% of the code, including all external libraries.
+[^funny-youtube-videos]: There are several funny videos about this topic on YouTube. One of the most popular is probably [What the... JavaScript?](https://youtu.be/2pL28CcEijU) by Kyle Simpsons
 
-[^type-annotations]: Type annotations in Elm are not required but are considered good practice to add them. It helps the compiler to provide more precise errors and also to detect bugs, like in the case of [Infinite Types](https://github.com/elm/compiler/blob/master/hints/infinite-type.md).
+Elm, in contrast, is strongly and statically typed so cases like the one mentioned above are not possible.[^implicit-casts] It is not even necessary to add *types annotations*[^type-annotations] because types are inferred by the Elm compiler. The type inference covers 100% of the code, including all external libraries.
 
 [^implicit-casts]: Note that Elm requires explicit conversion between *integers* and *floating* numbers. Someone find this cumbersome. This explicit conversion is necessary to make the Elm compiler faster. You can read more about this in the [Implicit Casts](https://github.com/elm/compiler/blob/master/hints/implicit-casts.md) article.
 
-[^funny-youtube-videos]: There are several funny videos about this topic on YouTube. One of the most popular is probably [What the... JavaScript?](https://youtu.be/2pL28CcEijU) by Kyle Simpsons
+[^type-annotations]: Type annotations in Elm are not required but are considered good practice to add them. It helps the compiler to provide more precise errors and also to detect bugs, like in the case of [Infinite Types](https://github.com/elm/compiler/blob/master/hints/infinite-type.md).
 
 ![Dynamic Typing vs Static Typing]("""
         ++ imagesUrl
@@ -493,7 +497,7 @@ The **cardinality** (number of possible states) for this structure is 2 x 2 x 2 
     
 [^maybe]: The type [`Maybe`](https://guide.elm-lang.org/error_handling/maybe.html) is how Elm handles missing values because **null** or **undefined** don't exist. Maybe is defined as {snippet_Maybe.elm} The Elm compiler will refuse to compile until you handle all the cases where a value may be missing in your code.
 
-But the possible states of the HTTP request are only three: `Loading`, `Error`, and `Success`. To make these extra five impossible states impossible, we can rewrite the code using a **custom type**[^custom-type]:
+But the possible states of the HTTP request are only three: `Loading`, `Error`, and `Success`. To make these extra five impossible states impossible, we can rewrite the code using a **custom type**:[^custom-type]
 
 [^custom-type]: As Evan Czaplicki put it, “[Custom types are the most important feature in Elm](https://guide.elm-lang.org/types/custom_types.html)”.
 
@@ -575,11 +579,13 @@ Other languages and frameworks follow different principles. For example, JavaScr
 
 A lot of work has been done to improve the Elm compiler, but the language per se has not undergone any major updates in more than four years.[^stability] Moreover, no foreseeable updates are coming soon.[^roadmap] The latest versions were mainly about improvements of the compiler’s performances and removal of features that were considered unnecessary or even detrimental, like the infix operator.[^infix-operator]
 
-And this is great because we can concentrate on building great products instead of spending time updating our code to the latest release.
+[^stability]: The latest large change was the [Farewell to Functional Reactive Programming](https://elm-lang.org/news/farewell-to-frp) in May 2016. Here a [high-level picture of the updates](https://elm-lang.org/news).
 
 [^roadmap]: [Evan Czaplicki's ideas about the future of Elm](https://github.com/elm/compiler/blob/master/roadmap.md).    
 
 [^infix-operator]: The infix operator has been removed because it was leading to unreadable code due to the creation of fancy non-standard operators. This is a longer explanation of [why the infix operators were removed](https://gist.github.com/evancz/769bba8abb9ddc3bf81d69fa80cc76b1).
+
+And this is great because we can concentrate on building great products instead of spending time updating our code to the latest release.
 
 > "It seems that perfection is attained not when there is nothing more to add, but when there is nothing more to remove"
 >
@@ -591,11 +597,9 @@ The core modules are also very stable. Most of the action nowadays is happening 
     
 We started writing Elm in version 0.18, and the transition to version 0.19[^version-0-19] was very smooth. We had more issues with the update of the HTTP library[^http-library-update] when, for lack of internal communication, one of our in-house dependencies was suddenly updated to HTTP 2.0, forcing us to refresh all the rest of the code in a short time.
     
-[^http-library-update]: [The update of the HTTP library](https://github.com/elm/http/releases/tag/2.0.0) is probably the latest large update within the core modules.
-
 [^version-0-19]: The [update from version 0.18 to version 0.19](https://elm-lang.org/news/small-assets-without-the-headache) was mainly about the optimization of the compiler.
 
-[^stability]: The latest large change was the [Farewell to Functional Reactive Programming](https://elm-lang.org/news/farewell-to-frp) in May 2016. Here a [high-level picture of the updates](https://elm-lang.org/news).
+[^http-library-update]: [The update of the HTTP library](https://github.com/elm/http/releases/tag/2.0.0) is probably the latest large update within the core modules.
 
 """
         ++ goToIndex
@@ -626,13 +630,15 @@ Functional programming[^functional-programming] is on the rise again! Maybe we a
 
 [^functional-programming]: **Functional programming** is a programming paradigm where programs are constructed by applying and composing functions. It is a **declarative** programming paradigm based on a sequence of functions that only depend on each other in terms of arguments and return values. It looks something like this:{snippet_declarative}By contrast, the **procedural paradigm** is based on a sequence of **imperative** commands that may implicitly alter the shared state. It looks something like this:{snippet_imperative}
 
+[^third-paradigm-shift]: [From Object Orient to Functional Programming](https://youtu.be/6YbK8o9rZfI?t=67), talk by Richard Feldman about paradigm shifts.
+
+
 > "No matter what language you work in, programming in a functional style provides benefits. You should do it whenever it is convenient, and you should think hard about the decision when it isn't convenient."
 >
 > **-- John Carmack [^carmack-on-fp]**
     
 [^carmack-on-fp]: [In-depth: Functional programming in C++](https://www.gamasutra.com/view/news/169296/Indepth_Functional_programming_in_C.php) by John Carmack.
 
-[^third-paradigm-shift]: [From Object Orient to Functional Programming](https://youtu.be/6YbK8o9rZfI?t=67), talk by Richard Feldman about paradigm shifts.
     
 Functional programming is good at handling complexity using **function composition**, splitting difficult problems into manageable problems. Then the functions that solve these manageable problems are composed together to solve the original difficult problem.    
 
@@ -993,7 +999,7 @@ This is similar to what Bret Victor showed in his famous talk "Inventing on Prin
 
 ## 13. Elm-UI, the alternative to CSS/HTML
 
-**Elm-UI** is **a new language for layout and interface**[^elm-ui]. It is a complete alternative to HTML and CSS. It is the most used non-core Elm library, and we use it in almost all of our projects.[^popular-packages]
+**Elm-UI** is **a new language for layout and interface**.[^elm-ui] It is a complete alternative to HTML and CSS. It is the most used non-core Elm library, and we use it in almost all of our projects.[^popular-packages]
     
 [^elm-ui]: **Elm-UI** is developed by Matthew Griffith. More information about **Elm-UI** in [the module documentation](https://package.elm-lang.org/packages/mdgriffith/elm-ui/latest/).
     
@@ -1338,7 +1344,7 @@ The Elm compiler per se is also fast. Our bigger codebase contains ~66,500 lines
 
 Elm is not a good fit to build static websites that are mostly content-driven. In these cases, an old server-side rendered website can be a better option.
 
-On the other side, if you get to like Elm, it is hard to go back to plain JavaScript/HTML/CSS, so we experimented with Elm for static websites. There are several tools for static site generation. We used *Elm-Starter*[^elm-starter], a library that transforms an Elm website into a server-side rendered PWA that is also installable, works off-line, and works without JavaScript.
+On the other side, if you get to like Elm, it is hard to go back to plain JavaScript/HTML/CSS, so we experimented with Elm for static websites. There are several tools for static site generation. We used *Elm-Starter*,[^elm-starter] a library that transforms an Elm website into a server-side rendered PWA that is also installable, works off-line, and works without JavaScript.
 
 [^elm-starter]: These are the most common tools to generate static sites in Elm: [Elm-Pages](https://package.elm-lang.org/packages/dillonkearns/elm-pages/latest/) | [ElmStatic](https://github.com/alexkorban/elmstatic) | [Elm-Starter](https://github.com/lucamug/elm-starter).
 
