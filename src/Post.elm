@@ -733,9 +733,11 @@ Another example of enforced discipline is that it is not possible to include Jav
 
 ## 8. Learnability
 
-Elm is beginner-friendly. It doesn't mean that Elm is not sophisticated enough. It means that it is well designed. There are both simple constructs for beginners and complex constructs for masters. Complexity gets introduced gradually.[^introduced-gradually]
+Elm is beginner-friendly. It doesn't mean that Elm is not sophisticated enough. It means that it is well designed. There are both simple constructs for beginners and complex constructs for masters. Complexity gets introduced gradually.[^introduced-gradually] This concept is sometime called "progressive disclosure of complexity".[^progressive-disclosure-of-complexity]
 
 [^introduced-gradually]: For example *sandbox*, *element*, *document*, and *application* in [Elm-Browser](https://package.elm-lang.org/packages/elm/browser/latest/Browser); *get*, *post*, and *request* in [Elm-HTTP](https://package.elm-lang.org/packages/elm/http/latest/Http); *picture*, *animation*, and *game* in [Elm-Playground](https://package.elm-lang.org/packages/evancz/elm-playground/latest/Playground); etc.
+
+[^progressive-disclosure-of-complexity]: Chris Krycho talk about it in the article [Progressive Disclosure of Complexity and Typed FP Languages](https://v5.chriskrycho.com/journal/progressive-disclosure-of-complexity-and-typed-fp-languages/).
 
 Moreover, during its evolution, features that created confusion and were not important have been removed or modified, transforming it into a lean language that is easy to learn.[^features-not-added]
 
