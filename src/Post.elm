@@ -321,24 +321,25 @@ These are some of our public projects made in Elm:
 
 In no particular order.
 
-1. [Controlled state](#1-controlled-state)
-1. [Principle of least astonishment](#2-principle-of-least-astonishment)
-1. [“Making impossible states impossible”](#3-making-impossible-states-impossible)
-1. [One way of doing things](#4-one-way-of-doing-things)
-1. [Stability](#5-stability)
-1. [Functional programming](#6-functional-programming)
-1. [Enforced discipline](#7-enforced-discipline)
-1. [Learnability](#8-learnability)
-1. [Compiler as assistant](#9-compiler-as-assistant)
-1. [Elm as an influencer](#10-elm-as-an-influencer)
-1. [The Elm Architecture](#11-the-elm-architecture)
-1. [The Elm debugger](#12-the-elm-debugger)
-1. [Elm-UI, the alternative to CSS/HTML](#13-elmui-the-alternative-to-csshtml)
-1. [Readability and Elm syntax](#14-readability-and-elm-syntax)
-1. [Refactoring](#15-refactoring)
-1. [Hiring](#16-hiring)
-1. [Fast performance and small assets](#17-fast-performance-and-small-assets)
-1. [Content-driven static websites](#18-contentdriven-static-websites)
+1. [Guarantees](#1-guarantees)
+1. [Controlled state](#2-controlled-state)
+1. [Principle of least astonishment](#3-principle-of-least-astonishment)
+1. [“Making impossible states impossible”](#4-making-impossible-states-impossible)
+1. [One way of doing things](#5-one-way-of-doing-things)
+1. [Stability](#6-stability)
+1. [Functional programming](#7-functional-programming)
+1. [Enforced discipline](#8-enforced-discipline)
+1. [Learnability](#9-learnability)
+1. [Compiler as assistant](#10-compiler-as-assistant)
+1. [Elm as an influencer](#11-elm-as-an-influencer)
+1. [The Elm Architecture](#12-the-elm-architecture)
+1. [The Elm debugger](#13-the-elm-debugger)
+1. [Elm-UI, the alternative to CSS/HTML](#14-elmui-the-alternative-to-csshtml)
+1. [Readability and Elm syntax](#15-readability-and-elm-syntax)
+1. [Refactoring](#16-refactoring)
+1. [Hiring](#17-hiring)
+1. [Fast performance and small assets](#18-fast-performance-and-small-assets)
+1. [Content-driven static websites](#19-contentdriven-static-websites)
 
 ### What we don't like about Elm
 
@@ -372,7 +373,38 @@ In no particular order.
 
 ***
 
-## 1. Controlled state
+
+## 1. Guarantees
+
+These are probably the most objective and important guarantees that Elm provides and that are difficult (impossible?) to find in other frameworks.
+
+- ⛔ No runtime exception.
+- 🗿 100% immutable data.
+- 💧 100% pure functions, also in all dependencies.
+- ♻️ 100% type inference.
+
+There are tradeoffs when choices, like these above, are made. For example, is not possible to call a JavaScript function directly from Elm. If that is of paramount importance for you, Elm is not the right choice.
+    
+If, instead, you think that Elm guarantees are more important, then Elm is the right choice.
+    
+In the section *The Limits of Elm/JS Interop* of the Elm guide, Evan Czaplicki elaborates more on this concept.[^limits-of-interop]
+
+[^limits-of-interop]: In this [section of the Elm guide](https://guide.elm-lang.org/interop/limits.html), Evan Czaplicki explains what are the tradeoffs of Elm guarantees.
+
+
+"""
+        ++ goToIndex
+        ++ """
+
+
+
+
+
+
+
+
+
+## 2. Controlled state
         
 JavaScript lets us do what we want with the state of a program. This can be useful for a quick prototype, but it is the precursor of bugs because it is difficult to track and understand changes in global variables.
 
@@ -407,7 +439,7 @@ The place where the state is, in Elm, is the `Model` and it is managed by the *E
 
 
 
-## 2. Principle of least astonishment
+## 3. Principle of least astonishment
 
 One of the ideas of Elm is that the outcome of the code should be predictable, without surprises.[^POLA] For example:
 
@@ -465,7 +497,7 @@ TypeScript, which adds optional static typing to JavaScript and is probably one 
 
 
 
-## 3. “Making impossible states impossible”
+## 4. “Making impossible states impossible”
 
 ![Penrose Triangle]("""
         ++ imagesUrl
@@ -534,7 +566,7 @@ type HttpState
 
 
 
-## 4. One way of doing things
+## 5. One way of doing things
 
 One application of this principle[^python] is about finding the best solution to a problem and then enforcing it in the language.
     
@@ -575,7 +607,7 @@ Other languages and frameworks follow different principles. For example, JavaScr
 
 
 
-## 5. Stability
+## 6. Stability
 
 A lot of work has been done to improve the Elm compiler, but the language per se has not undergone any major updates in more than four years.[^stability] Moreover, no foreseeable updates are coming soon.[^roadmap] The latest versions were mainly about improvements of the compiler’s performances and removal of features that were considered unnecessary or even detrimental, like the infix operator.[^infix-operator]
 
@@ -624,7 +656,7 @@ We started writing Elm in version 0.18, and the transition to version 0.19[^vers
 
 
 
-## 6. Functional programming
+## 7. Functional programming
 
 Functional programming[^functional-programming] is on the rise again! Maybe we are already in the middle of a third paradigm shift.[^third-paradigm-shift]
 
@@ -692,7 +724,7 @@ List.map (add 10) [1, 2, 3] -- Gives [11,12,13]
 
 
 
-## 7. Enforced discipline
+## 8. Enforced discipline
 
 Purely functional languages motivate programmers to think better about the programs they are building. Although the initial development time can increase with such restrictions, the increased maintainability compensate for the effort.
 
@@ -731,7 +763,7 @@ Another example of enforced discipline is that it is not possible to include Jav
 
 
 
-## 8. Learnability
+## 9. Learnability
 
 Elm is beginner-friendly. It doesn't mean that Elm is not sophisticated enough. It means that it is well designed. There are both simple constructs for beginners and complex constructs for masters. Complexity gets introduced gradually.[^introduced-gradually] This concept is sometime called "gradual learning" or "progressive disclosure of complexity".[^progressive-disclosure-of-complexity]
 
@@ -778,7 +810,7 @@ A beginner Elm developer, in our experience, can be productive in a couple of we
 
 
 
-## 9. Compiler as assistant
+## 10. Compiler as assistant
 
 The Elm compiler can statically analyze the code for inconsistencies and provide precise feedback to the programmer.[^compile-as-assistant]
 
@@ -838,7 +870,7 @@ The Elm compiler produces **state-of-the-art error messages** and its high stand
 
 
 
-## 10. Elm as an influencer
+## 11. Elm as an influencer
 
 Most technologies get influenced by existing ideas in one way or another. Elm, for example, was influenced by Haskell, Standard ML, OCaml, and F#.
 
@@ -890,7 +922,7 @@ Considering how influential Elm is and the general trend toward Functional Progr
 
 
 
-## 11. The Elm Architecture
+## 12. The Elm Architecture
 
 **The Elm Architecture** is probably the most relevant and influential innovation of Elm.[^the-elm-architecture] It is a **unidirectional data flow**[^unidirectional-data-flow] that helps to keep your application well organized. Also, it helps you to quickly understand applications built by other developers as this is the standard way to build applications in Elm.    
     
@@ -918,7 +950,7 @@ If we zoom in on the `Elm` block in the diagram above, this is what we would see
         ++ """the-elm-architecture-animation.gif)
 *How the Elm runtime system[^elm-runtime] orchestrates the infinite loop[^the-game-loop] of an Elm application using The Elm Architecture.* 
     
-[^elm-runtime]: When we write Elm code, 100% of our code is pure so there are no side effects. But without side effects, our application would just be a boring silent empty screen. The **Elm runtime system** is the part of the code that is in charge of the side-effects. In our code, we just request these side effects to be done and we wait for the outcomes. Examples of side effects are HTTP requests or DOM modifications. How do we do side effects while remaining pure? In Elm, there are two ways. For things like HTTP requests, for example, there are commands (`Cmd`), that are instructions, in the form of data, that we send as requests to the Elm runtime system. For changing the DOM, the way to do side effects is to take the entire state of the world as an argument and return a new version of it. So we can change the world (side effects) by remaining pure. The world in our case is the **Model** and the function that does that is the **update** function: `update: Msg -> Model -> (Model, Cmd msg)` (see [The Elm Architecture](#11-the-elm-architecture) for more details). The video [What is IO monad?](https://youtu.be/fCoQb-zqYDI?t=42) by Alexey Kutepov explains this concept in general terms.
+[^elm-runtime]: When we write Elm code, 100% of our code is pure so there are no side effects. But without side effects, our application would just be a boring silent empty screen. The **Elm runtime system** is the part of the code that is in charge of the side-effects. In our code, we just request these side effects to be done and we wait for the outcomes. Examples of side effects are HTTP requests or DOM modifications. How do we do side effects while remaining pure? In Elm, there are two ways. For things like HTTP requests, for example, there are commands (`Cmd`), that are instructions, in the form of data, that we send as requests to the Elm runtime system. For changing the DOM, the way to do side effects is to take the entire state of the world as an argument and return a new version of it. So we can change the world (side effects) by remaining pure. The world in our case is the **Model** and the function that does that is the **update** function: `update: Msg -> Model -> (Model, Cmd msg)` (see [The Elm Architecture](#12-the-elm-architecture) for more details). The video [What is IO monad?](https://youtu.be/fCoQb-zqYDI?t=42) by Alexey Kutepov explains this concept in general terms.
     
 [^the-game-loop]: If you are familiar with game development you can find similarities between **The Elm Architecture** and **The Game Loop**. The main difference is that usually games don't wait for something to happen, but the loop keeps running all the time. When we develop games in Elm, we do the same using [onAnimationFrame](https://package.elm-lang.org/packages/elm/browser/latest/Browser-Events#onAnimationFrame) so that the loop keeps running with a usual speed of 60 times per second.
 
@@ -958,7 +990,7 @@ The **Elm runtime system**:
 
 
 
-## 12. The Elm debugger
+## 13. The Elm debugger
 
 The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm applications. It shows the state of the application and keeps track of all the messages fired during the application's life. It also gives you the ability to go back in time, crating an immediate connection to what we are coding.[^elm-debugger-example]    
     
@@ -999,7 +1031,7 @@ This is similar to what Bret Victor showed in his famous talk "Inventing on Prin
 
 
 
-## 13. Elm-UI, the alternative to CSS/HTML
+## 14. Elm-UI, the alternative to CSS/HTML
 
 **Elm-UI** is **a new language for layout and interface**.[^elm-ui] It is a complete alternative to HTML and CSS. It is the most used non-core Elm library, and we use it in almost all of our projects.[^popular-packages]
     
@@ -1008,7 +1040,7 @@ This is similar to what Bret Victor showed in his famous talk "Inventing on Prin
 [^popular-packages]: This [enhanced mirror of the Elm Package Manager](https://elm.dmy.fr/) list packages in order of popularity. If we exclude the core library, the top 5 packages are [Elm-UI](https://elm.dmy.fr/packages/mdgriffith/elm-ui/latest/) | [Elm-JSON-Decode-Pipeline](https://elm.dmy.fr/packages/NoRedInk/elm-json-decode-pipeline/latest/) | [Elm-CSS](https://elm.dmy.fr/packages/rtfeldman/elm-css/latest/) | [elm-color](https://elm.dmy.fr/packages/avh4/elm-color/latest/) | [Remotedata](https://elm.dmy.fr/packages/krisajenkins/remotedata/latest/).
     
 
-It applies the [Principle of least astonishment](#2-principle-of-least-astonishment) seen earlier to the design of a web page. Your intents are translated clearly in the design, a rarity using CSS, making the design process fun and quick.
+It applies the [Principle of least astonishment](#3-principle-of-least-astonishment) seen earlier to the design of a web page. Your intents are translated clearly in the design, a rarity using CSS, making the design process fun and quick.
 
 For example, let's suppose we have a blue box and we want to center (horizontally and vertically) an element of unknown width and height containing the text "I'm centered! 🎉" in it:
 
@@ -1123,7 +1155,7 @@ It feels like a breath of fresh air after years spent learning all sorts of CSS 
 
 
 
-## 14. Readability and Elm syntax
+## 15. Readability and Elm syntax
 
 Functional languages, being declarative, allow us to concentrate on writing *what* and not *how*. Hiding the *how* details make the code easier to read and understand, the “intentions” of the code became transparent. 
 
@@ -1226,9 +1258,9 @@ This formatting style has several benefits, for example, the code looks more org
 
 
 
-## 15. Refactoring
+## 16. Refactoring
 
-The idea that the [Elm compiler is like an assistant](#9-compiler-as-assistant) and the fact that once the code compiles, it usually works makes refactoring a pleasant experience.
+The idea that the [Elm compiler is like an assistant](#10-compiler-as-assistant) and the fact that once the code compiles, it usually works makes refactoring a pleasant experience.
 
 An additional factor that makes refactoring easy is that being a purely functional language, **the order in which we write the code doesn’t matter**.[^hoisting]
 
@@ -1277,7 +1309,7 @@ In our largest project, we are in the middle of a third major refactoring iterat
     
     
     
-## 16. Hiring
+## 17. Hiring
 
 Hiring for a language that is not mainstream has some downsides. For example, not many developers probably know it fluently.
 
@@ -1309,7 +1341,7 @@ Moreover, hiring for a minor technology can boost your brand as an innovative co
     
     
     
-## 17. Fast performance and small assets
+## 18. Fast performance and small assets
 
 The Elm compiler can apply several optimizations specific to the fact that Elm is a purely functional language. This leads to several benefits, including:
 
@@ -1342,7 +1374,7 @@ The Elm compiler per se is also fast. Our bigger codebase contains ~66,500 lines
 
 
 
-## 18. Content-driven static websites
+## 19. Content-driven static websites
 
 Elm is not a good fit to build static websites that are mostly content-driven. In these cases, an old server-side rendered website can be a better option.
 
@@ -1387,7 +1419,7 @@ There are common issues with all technologies that are not mainstream. When they
     
 [^what-is-success]: Evan Czaplicki in the talk [What is Success?](https://youtu.be/uGlzRt-FYto?t=261) discusses this topic.
 
-We believe that arguments should be considered case by case. Sometimes not being mainstream does have related implications (see [Reinventing the wheel](#3-reinventing-the-wheel)); other times is more nuanced than it seems (see [Hiring](#16-hiring)); most of the time, not being mainstream is unrelated to good qualities.[^oop]
+We believe that arguments should be considered case by case. Sometimes not being mainstream does have related implications (see [Reinventing the wheel](#3-reinventing-the-wheel)); other times is more nuanced than it seems (see [Hiring](#17-hiring)); most of the time, not being mainstream is unrelated to good qualities.[^oop]
     
 [^oop]: For example, did the object-oriented paradigm become mainstream for its inherently good qualities and its ability to deal with complex problems? Was it by chance? (As Richard Feldman suggests in his video, [Why Isn't Functional Programming the Norm?](https://youtu.be/QyJZzq0v7Z4?t=2069)) Was it because it is an inferior paradigm (as Brian Will highlights in [Object-Oriented Programming is Bad](https://youtu.be/QM1iUe6IofM)) but Microsoft and the [industry that created](http://harmful.cat-v.org/software/OO_programming/why_oo_sucks), promoted it?
     
@@ -1566,19 +1598,6 @@ Related to this, Elm is probably not a good fit for short projects that require 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Conclusion
 
 We mentioned some of the benefits of coding with Elm, or with a purely functional language for that matter. We also talked about the main issues.
@@ -1600,5 +1619,35 @@ Compared to the pre-Elm experience, coding is now more enjoyable, more productiv
 """
         ++ goToIndex
         ++ """
+
+
+
+
+
+
+
+
+
+# Similar testimonies
+
+It is always good to hear a different opinion on every argument. Here you can find other testimonies of Elm being adopted in different companies:
+
+* [Elm at Microsoft](https://elmtown.simplecast.com/episodes/it-just-goes-on-and-on-x_tpWljQ)
+* [Elm at Humio](https://www.humio.com/whats-new/blog/why-we-chose-elm-for-humio-s-web-ui) 
+* [Elm at Gizra](https://www.youtube.com/watch?v=FgaoOgJ5CAU)
+* [Elm at Ford](https://www.youtube.com/watch?v=5WVXCy1Q88o)
+* [Elm at Culture Amp](https://www.youtube.com/watch?v=LZj_1qVURL0)
+* [Elm at Thoughtbot](https://thoughtbot.com/blog/tags/elm)
+* [Elm at other companies](https://github.com/jah2488/elm-companies#readme)
+    
+
+
+
+
+
+"""
+        ++ goToIndex
+        ++ """
+
 ### Notes
 """
