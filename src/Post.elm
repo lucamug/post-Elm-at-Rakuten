@@ -352,6 +352,7 @@ In no particular order.
 1. [Some JavaScript and CSS are still necessary](#5-some-javascript-and-css-are-still-necessary)
 
 * [Conclusion](#conclusion)
+* [Other testimonies](#other-testimonies)
 
 
 
@@ -1628,12 +1629,13 @@ Compared to the pre-Elm experience, coding is now more enjoyable, more productiv
 
 
 
-# Similar testimonies
+# Other testimonies
 
 It is always good to hear a different opinion on every argument. Here you can find other testimonies of Elm being adopted in different companies:
 
-* [Elm at Microsoft](https://elmtown.simplecast.com/episodes/it-just-goes-on-and-on-x_tpWljQ)
+* [Elm at NoRedInk](https://juliu.is/elm-at-noredink/)
 * [Elm at Humio](https://www.humio.com/whats-new/blog/why-we-chose-elm-for-humio-s-web-ui) 
+* [Elm at Microsoft](https://elmtown.simplecast.com/episodes/it-just-goes-on-and-on-x_tpWljQ)
 * [Elm at Gizra](https://www.youtube.com/watch?v=FgaoOgJ5CAU)
 * [Elm at Ford](https://www.youtube.com/watch?v=5WVXCy1Q88o)
 * [Elm at Culture Amp](https://www.youtube.com/watch?v=LZj_1qVURL0)
