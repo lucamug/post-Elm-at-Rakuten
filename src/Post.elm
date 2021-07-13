@@ -27,7 +27,7 @@ type Target
 
 target : Target
 target =
-    DevTo
+    Hugo
 
 
 regex : Regex.Regex
@@ -188,7 +188,12 @@ text : String -> Html msg{{< /highlight >}}"""
 
 imagesUrl : String
 imagesUrl =
-    "https://lucamug.github.io/post-Elm-at-Rakuten/images/"
+    case target of
+        DevTo ->
+            "https://lucamug.github.io/post-Elm-at-Rakuten/images/"
+
+        Hugo ->
+            "./images/"
 
 
 headerHugo : String
@@ -231,11 +236,9 @@ post =
         ++ """
 ---
 
-*Jump to the [index](#index).*
-    
-***    
-
 In our team at Rakuten, **we have been using Elm[^elm] in production for almost two years now**. This post is about our story, the lessons we learned, and our likes and dislikes.
+
+This post is quite long so if you prefer to see an overview, feel free to  [jump to the index](#index).
 
 [^elm]: **Elm** is a **compiled, immutable, strongly statically typed, and purely functional** programming language that compiles to JavaScript. JavaScript is a **just-in-time compiled, weakly dynamically typed, multi-paradigm** programming language. To know more about Elm, a good start is the [official guide](https://guide.elm-lang.org/). If you are familiar with JavaScript you can check [From JavaScript?](https://elm-lang.org/docs/from-javascript) which is a short comparison between the syntax of the two languages.The Elm language, including the compiler and the core libraries, is designed and developed by Evan Czaplicki, with the support of a small core team of developers. Evan retains the final say in disputes or arguments. This setup, a common practice for the initial few years of many languages, guarantees a coherent vision and well-designed APIs.
 
@@ -1002,7 +1005,7 @@ The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm appli
 ![The Elm Debugger]("""
         ++ imagesUrl
         ++ """debugger-m.gif)
-*The Elm debugger. From the left to the right: the application; the history of messages; the current message and the model.*[^elm-debugger-demo]
+*The Elm debugger. From the left to the right: the application; the history of messages; the current message and the model. [^elm-debugger-demo]*
 
 [^elm-debugger-demo]: [Demo](https://lucamug.github.io/mario/) and [source code](https://github.com/lucamug/mario/blob/master/src/Main.elm) of the application used to demonstrate the Elm Debugger. 
 
