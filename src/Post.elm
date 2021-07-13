@@ -428,7 +428,9 @@ TypeScript, which adds optional static typing to JavaScript and is probably one 
 
 [^blind-spots]: The article [TypeScript's Blind Spots](https://incrementalelm.com/tips/typescript-blind-spots/) by Dillon Kearns illustrates several weak points of TypeScript.
 
-[^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:{snippet_example_type_guard.js}After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
+[^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:
+{snippet_example_type_guard.js}
+After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
     
 """
         ++ goToIndex
@@ -1217,13 +1219,12 @@ It is always good to hear a different opinion on every argument. Here you can fi
 
 
 """
-        ++ goToIndex
         ++ (case target of
                 DevTo ->
-                    """
+                    goToIndex ++ """
 ### Notes
 """
 
                 Hugo ->
-                    ""
+                    "[Index](#index) | [Top](#top)"
            )
