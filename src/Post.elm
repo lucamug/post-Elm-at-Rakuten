@@ -200,7 +200,7 @@ headerHugo : String
 headerHugo =
     """title: "Elm at Rakuten"
 date: 2021-07-13T00:00:00+09:00
-hero: /post/elm-in-rakuten/images/elm-at-rakuten.png
+hero: /post/elm-at-rakuten/images/elm-at-rakuten.png
 excerpt: "Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes."
 timeToRead: 5
 authors:
@@ -700,7 +700,7 @@ Considering how influential Elm is and the general trend toward Functional Progr
         ++ """the-elm-architecture.svg)
 *A simple representation of the unidirectional data flows in The Elm Architecture. (Source: The Elm Guide) [^representation-of-unidirectional-flow]*
     
-[^representation-of-unidirectional-flow]: The illustration **A simple representation of the Elm Architecture** is from the as depicted in the [Elm Guide](https://guide.elm-lang.org/architecture/) used under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) [license](https://github.com/evancz/guide.elm-lang.org/blob/master/LICENSE).
+[^representation-of-unidirectional-flow]: The illustration **A simple representation of the Elm Architecture** is from the [Elm Guide](https://guide.elm-lang.org/architecture/) used under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) [license](https://github.com/evancz/guide.elm-lang.org/blob/master/LICENSE).
     
 There are three building blocks in The Elm Architecture:
     
