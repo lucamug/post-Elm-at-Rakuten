@@ -199,8 +199,8 @@ imagesUrl =
 headerHugo : String
 headerHugo =
     """title: "Elm at Rakuten"
-date: 2021-01-12T00:00:00+09:00
-hero: """ ++ imagesUrl ++ """elm-at-rakuten.png
+date: 2021-07-13T00:00:00+09:00
+hero: /post/elm-in-rakuten/images/elm-at-rakuten.png
 excerpt: "Our story of adopting the Elm language in Rakuten. The lessons we learned, and our likes and dislikes."
 timeToRead: 5
 authors:
@@ -365,13 +365,9 @@ If, instead, you think that Elm guarantees are more important, then Elm is the r
 In the section *The Limits of Elm/JS Interop* of the Elm guide, Evan Czaplicki elaborates more on this concept.[^limits-of-interop]
 
 [^limits-of-interop]: In this [section of the Elm guide](https://guide.elm-lang.org/interop/limits.html), Evan Czaplicki explains what are the tradeoffs of Elm guarantees.
-
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 2. Controlled state
         
@@ -388,12 +384,9 @@ JavaScript lets us do what we want with the state of a program. This can be usef
 The place where the state is, in Elm, is the `Model` and it is managed by the *Elm Runtime system*[^elm-runtime-system] so that 100% of the code that we write can be pure (these concepts will be explained in more detail later).
 
 [^elm-runtime-system]: The [Elm runtime system](https://guide.elm-lang.org/effects/) is the part of the code in charge of directing the application. For example, it figures out how to render HTML, how to send an HTTP request, redirect users' clicks back into the Elm code, etc.  
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 3. Principle of least astonishment
 
@@ -431,12 +424,9 @@ TypeScript, which adds optional static typing to JavaScript and is probably one 
 [^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:
 {snippet_example_type_guard.js}
 After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 4. “Making impossible states impossible”
 
@@ -482,12 +472,9 @@ type HttpState
 ```
 
 *Custom types* are also called *Sum types* in the sense that the cardinality is now a sum: 1 + 1 + 1 = 3. The right number of possible states.
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 5. One way of doing things
 
@@ -505,12 +492,9 @@ The principle guarantees consistency across codebases, even when they belong to 
 Other languages and frameworks follow different principles. For example, JavaScript follows the **“One JavaScript”** principle.[^one-javascript] It means that JavaScript is not versioned and is back compatible. Back-compatibility is the precursor of "several ways of doing things."
 
 [^one-javascript]: The [One JavaScript](https://2ality.com/2014/12/one-javascript.html) principle is about removing versioning and being always back-compatible. This fact, combined with ten days of design and 25 years of back-compatibility, inevitably accumulated a large number of different ways of doing things. For example, defining a function can be done in [several different ways](https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/). 
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 6. Stability
 
@@ -537,12 +521,9 @@ We started writing Elm in version 0.18, and the transition to version 0.19[^vers
 [^version-0-19]: The [update from version 0.18 to version 0.19](https://elm-lang.org/news/small-assets-without-the-headache) was mainly about the optimization of the compiler.
 
 [^http-library-update]: [The update of the HTTP library](https://github.com/elm/http/releases/tag/2.0.0) is probably the latest large update within the core modules.
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 7. Functional programming
 
@@ -589,12 +570,9 @@ List.map (add 10) [1, 2, 3] -- Gives [11,12,13]
 ```
 
 [^partial-application]: Passing a smaller number of arguments to a function, like in `add 10`, is called **partial application** and it opens the door to interesting coding techniques. If you squint, it is like *dependency injection* where the `10` is the injected part. Scott Wlaschin explains this and other patterns in his talk [Functional Design Patterns](https://youtu.be/srQt1NAHYC0?t=2077). 
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 8. Enforced discipline
 
@@ -611,12 +589,9 @@ Elm enforces discipline on developers rather than letting developers be discipli
 Another example of enforced discipline is that it is not possible to include JavaScript code in Elm libraries.[^loophole] This fact means that the Elm guarantees, like no *runtime errors*, are also valid for your dependencies.
 
 [^loophole]: A loophole that allowed using JavaScript in libraries was [closed in version 0.19](https://discourse.elm-lang.org/t/native-code-in-0-19/826).
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 9. Learnability
 
@@ -637,12 +612,9 @@ Setting up a development environment is also simple because all tools usually ne
 [^built-in-tools]: You can start experimenting with Elm using [elm reactor](https://elmprogramming.com/elm-reactor.html), a web server built-in the Elm compiler that automatically re-compiles your code every time you refresh the browser. For more advanced coding there is [Elm-Live](https://github.com/wking-io/elm-live), a web server that supports custom HTML and hot reload. `Elm-Live` is what we use for our team. You can also use the usual suspects, like Webpack or Parcel.
 
 A beginner Elm developer, in our experience, can be productive in a couple of weeks and can master the language in a couple of months.
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 10. Compiler as assistant
 
@@ -680,12 +652,9 @@ The compiler guarantees that all edge cases are covered, something difficult to 
 The Elm compiler produces **state-of-the-art error messages** and its high standard of quality is now an inspiration for other designers of languages too.[^error-messages]
     
 [^error-messages]: "[This should be an inspiration for every error message](https://twitter.com/id_aa_carmack/status/735197548034412546)", John Carmack commenting on Elm error messages
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 11. Elm as an influencer
 
@@ -714,12 +683,9 @@ We now use Elm because we believe it is one of the best options for web developm
 Considering how influential Elm is and the general trend toward Functional Programming, it seems that this “something better” will be something similar to Elm. So the transition, if any, should be smooth.[^other-options]
 
 [^other-options]: [ClojureScript](https://clojurescript.org/), [ReScript](https://rescript-lang.org/), and [PureScript](https://www.purescript.org/) are three languages that have a similar concept to Elm.
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 12. The Elm Architecture
 
@@ -762,12 +728,9 @@ The **Elm runtime system**:
 * Sends the updated `Model` to `view` that will return new HTML
 * Updates the DOM using the new HTML
 * GOTO start
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 13. The Elm debugger
 
@@ -787,12 +750,9 @@ The built-in **Elm debugger**[^elm-debugger] is a useful tool to debug Elm appli
 This is similar to what Bret Victor showed in his famous talk "Inventing on Principle."[^bret-victor]
 
 [^bret-victor]: Bret Victor is an interface designer, computer scientist, and electrical engineer known for his talks on the future of technology. In his talk, [Inventing on Principle](https://youtu.be/PUv66718DII?t=762), Victor showed his vision about fixing the fundamentally broken way we make software. The vision, is short, is that "Creators need an immediate connection to what they’re creating." More about this in [The Coming Software Apocalypse](https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/) by James Somers.
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 14. Elm-UI, the alternative to CSS/HTML
 
@@ -893,12 +853,9 @@ With **Elm-UI**, the one-to-one mapping is not between the Elm code and the HTML
 It feels like a breath of fresh air after years spent learning all sorts of CSS tricks.[^css-tricks-irony]
     
 [^css-tricks-irony]: Before moving to **Elm-UI** we were avid consumers of [css-tricks.com](https://css-tricks.com/), an excellent source of CSS tricks and information related to web development. Ironically it was also the place where we learned the existence of Elm that led us to use **Elm-UI** and eventually made **css-tricks.com** way less relevant.
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 15. Readability and Elm syntax
 
@@ -978,12 +935,9 @@ trafficLights =
 This formatting style has several benefits, for example, the code looks more organized (all commas are aligned), and there are fewer merge conflicts.[^comma-leading]
 
 [^comma-leading]: Read more about the benefits of the **comma-leading lists** approach in [The Case for Comma-Leading Lists](https://dev.to/tao/the-case-for-comma-leading-lists-3n49). This approach applies to any list separator. For example, in CSS we could write: {snippet_separator_leading.css}
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 16. Refactoring
 
@@ -1010,12 +964,9 @@ Even if the two lines seem in the wrong order, it works well in Elm, but the sam
 Refactoring became simpler because **we can shuffle pieces of code around** without warring.
 
 In our largest project, we are in the middle of a third major refactoring iteration, and we have pieces of code that are still at the first iteration and some code in the second iteration. And all of our code works well together. We are now incrementally moving all our code toward the third iteration. In Elm, you don't need to get things right from the beginning.
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 17. Hiring
 
@@ -1028,12 +979,9 @@ In any case, **learning Elm is a fast process**. As already stated, our experien
 As a result, rather than asking “How many applicants know X?” we should better ask: “What does, knowing X, tell us about an applicant?” focusing on engineers that have the passion and are capable of adapting and learning new concepts.    
 
 Moreover, hiring for a minor technology can boost your brand as an innovative company, making you the coolest kid on the block.
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 18. Fast performance and small assets
 
@@ -1049,12 +997,9 @@ The Elm compiler can apply several optimizations specific to the fact that Elm i
 The Elm compiler per se is also fast. Our bigger codebase contains ~66,500 lines of Elm code, and it compiles incrementally in 0.3 seconds and from scratch in 2.5 seconds.[^compiler-performances]
 
 [^compiler-performances]: These numbers are calculated [using this method](https://discourse.elm-lang.org/t/help-gather-data-on-build-times/4624) on a MacBook Pro 2.3GHz Quad-Core i7.
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 19. Content-driven static websites
 
@@ -1065,12 +1010,9 @@ On the other side, if you get to like Elm, it is hard to go back to plain JavaSc
 [^elm-starter]: These are the most common tools to generate static sites in Elm: [Elm-Pages](https://package.elm-lang.org/packages/dillonkearns/elm-pages/latest/) | [ElmStatic](https://github.com/alexkorban/elmstatic) | [Elm-Starter](https://github.com/lucamug/elm-starter).
 
 These characteristics help to achieve good Lighthouse scores and good search engine ranking (SEO).
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 # What we don't like about Elm
 
@@ -1096,12 +1038,9 @@ We believe that arguments should be considered case by case. Sometimes not being
 If you still need to be reassured, consider that, regardless of the popularity of Elm, many companies are using it, including several large companies like Microsoft, IBM, eBay, Ford, Amazon, Zalando, and Thoughtbot.[^elm-usage]
 
 [^elm-usage]: Some of these companies are mentioned by Richard Feldman in the video [Building UIs in the Dark (aka Elm Programming)](https://youtu.be/sKxEwjKQ5zg?t=303) and the list [Elm companies](https://github.com/jah2488/elm-companies).
-    
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 2. Lack of Googleable resources
 
@@ -1120,12 +1059,9 @@ In the Elm Slack channel, information is always fresh, and the community is very
 Other times, resources are scattered and are not published with good SEO. Take, for example, this [valuable list of hints](https://github.com/elm/compiler/blob/master/hints/) that seldom appear in Google results.[^awesome-elm]
 
 [^awesome-elm]: There is no lack of good resources to learn Elm. A good aggregator for these resources in the [Awesome-Elm](https://github.com/sporto/awesome-elm/blob/master/README.md). 
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 3. Reinventing the wheel
 
@@ -1134,12 +1070,9 @@ Because Elm is not a mainstream language, it is sometimes necessary to reinvent 
 [^r10-form-library]: The library that we wrote is now [open source](https://package.elm-lang.org/packages/rakutentech/r10/latest/R10-Form).
 
 This issue was more significant in the past because nowadays the number of Elm packages covers a wide spectrum of subjects.
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 4. Mindset shift
 
@@ -1152,12 +1085,9 @@ Purely functional programming could be mind-bending and intimidating for a devel
 Some consider this to be a benefit as it brings you out of your comfort zone and makes you think differently about programming.
 
 But for someone else is a burden and could discourage a team from adopting Elm. 
-
 """
         ++ goToIndex
         ++ """
-
-
 
 ## 5. Some JavaScript and CSS are still necessary
 
@@ -1172,12 +1102,9 @@ The required CSS, while using the library *Elm-UI*, is limited. In our applicati
 Related to this, Elm is probably not a good fit for short projects that require lots of integration with third-party JavaScript libraries.
     
 [^interop]: Elm provides several methodologies to communicate with JavaScript. Here is [an introduction to JavaScript interoperability](https://guide.elm-lang.org/interop/) with some [examples](https://github.com/elm-community/js-integration-examples).
-
 """
         ++ goToIndex
         ++ """
-
-
 
 # Conclusion
 
@@ -1193,15 +1120,10 @@ A consequence of these technical benefits is the great feeling of relaxation, no
 
 Compared to the pre-Elm experience, coding is now more enjoyable, more productive, and without runtime errors! 🎉
 
-[^fp-fun-again]: **Rúnar Bjarnason** is an advocate of functional programming. He is the co-author of the Scala “Red book” and the creator of the programming language Unison. Unison, [*“A friendly programming language from the future.”*](https://www.unisonweb.org/), has similarities to Elm as they are both inspired by Haskell, as explained in the video [Introduction to the Unison programming language](https://youtu.be/rp_Eild1aq8?t=248).
-    
-    
-    
+[^fp-fun-again]: **Rúnar Bjarnason** is an advocate of functional programming. He is the co-author of the Scala “Red book” and the creator of the programming language Unison. Unison, [*“A friendly programming language from the future.”*](https://www.unisonweb.org/), has similarities to Elm as they are both inspired by Haskell, as explained in the video [Introduction to the Unison programming language](https://youtu.be/rp_Eild1aq8?t=248).    
 """
         ++ goToIndex
         ++ """
-
-
 
 # Other testimonies
 
