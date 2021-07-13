@@ -288,29 +288,12 @@ Fast forward another couple of years, and here we are, with **several applicatio
 
 [^oslo-elm-days]: Even if it is almost two years old now, some more details about the use of Elm at Rakuten can be found in my talk [Elm at large (companies)](https://youtu.be/yH6o322S8XQ) given at the **Oslo Elm Day 2019** conference.
 
-These are some of our public projects made in Elm:
-
-* A generic **authentication and registration system** used, among others, in the [Taiwanese marketplace](https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email&ui_locales=en-UK#/registration/1), and the [Rakuten Sport website](https://login.account.rakuten.com/sso/register?client_id=rakuten_sports&redirect_uri=https%3A%2F%2Fsports.rakuten.com%2F&response_type=code&scope=openid%2Bemail%2Bprofile&ui_locales=en-UK#/sign_in).
-* **R10**, a UI library: [Source Code](https://github.com/rakutentech/r10/) | [Demo](https://r10.netlify.app/) | [Editable demo](https://ellie-app.com/c5SL2qqLZP2a1) | [Elm Package Manager](https://package.elm-lang.org/packages/rakutentech/r10/latest/).
-* **HTTP Trinity**, an HTTP library: [Source code](https://github.com/rakutentech/http-trinity) | [Demo](https://rakutentech.github.io/http-trinity/).
-* The **Rakuten Open Source website**: [Source Code](https://github.com/rakutentech/rakutentech.github.io) | [Website](https://rakutentech.github.io/).
-* A simple [404 error page](https://login.account.rakuten.com/) (The preceding link is broken to demonstrate the 404 error page).
-* An [informative page about security](https://static.id.rakuten.co.jp/static/about_security/jpn/), in Japanese.
+These are some of our public projects made in Elm: A generic [authentication and registration system](https://login.account.rakuten.com/sso/register?client_id=rakuten_tw01&redirect_uri=https%3A%2F%2Fwww.rakuten.com.tw%2Fmember%2Fdelegate&response_type=code&scope=openid+profile+email&ui_locales=en-UK#/registration/1), a [UI library](https://package.elm-lang.org/packages/rakutentech/r10/latest/) to build [stuff like this](https://ellie-app.com/c5SL2qqLZP2a1), an [HTTP library](https://rakutentech.github.io/http-trinity/), the [Rakuten Open Source website](https://rakutentech.github.io/) ([source code](https://github.com/rakutentech/rakutentech.github.io)), a simple [404 error page](https://login.account.rakuten.com/), an [informative page about security](https://static.id.rakuten.co.jp/static/about_security/jpn/) (in Japanese).
 
 ![Credit Card Demo]("""
         ++ imagesUrl
         ++ """credit-card-demo.png)
 *[Example of a credit card form](https://r10.netlify.app/form_example_credit_card/) made using the R10 library.*
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -359,18 +342,6 @@ In no particular order.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ***    
 
 # What we like about Elm
@@ -402,12 +373,6 @@ In the section *The Limits of Elm/JS Interop* of the Elm guide, Evan Czaplicki e
 
 
 
-
-
-
-
-
-
 ## 2. Controlled state
         
 JavaScript lets us do what we want with the state of a program. This can be useful for a quick prototype, but it is the precursor of bugs because it is difficult to track and understand changes in global variables.
@@ -427,19 +392,6 @@ The place where the state is, in Elm, is the `Model` and it is managed by the *E
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -481,23 +433,6 @@ TypeScript, which adds optional static typing to JavaScript and is probably one 
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -552,24 +487,6 @@ type HttpState
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 5. One way of doing things
 
 One application of this principle[^python] is about finding the best solution to a problem and then enforcing it in the language.
@@ -590,24 +507,6 @@ Other languages and frameworks follow different principles. For example, JavaScr
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -640,23 +539,6 @@ We started writing Elm in version 0.18, and the transition to version 0.19[^vers
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -712,22 +594,6 @@ List.map (add 10) [1, 2, 3] -- Gives [11,12,13]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 8. Enforced discipline
 
 Purely functional languages motivate programmers to think better about the programs they are building. Although the initial development time can increase with such restrictions, the increased maintainability compensate for the effort.
@@ -747,23 +613,6 @@ Another example of enforced discipline is that it is not possible to include Jav
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -790,27 +639,6 @@ A beginner Elm developer, in our experience, can be productive in a couple of we
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -857,23 +685,6 @@ The Elm compiler produces **state-of-the-art error messages** and its high stand
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 11. Elm as an influencer
 
 Most technologies get influenced by existing ideas in one way or another. Elm, for example, was influenced by Haskell, Standard ML, OCaml, and F#.
@@ -905,24 +716,6 @@ Considering how influential Elm is and the general trend toward Functional Progr
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -972,26 +765,6 @@ The **Elm runtime system**:
         ++ goToIndex
         ++ """
 
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## 13. The Elm debugger
@@ -1016,22 +789,6 @@ This is similar to what Bret Victor showed in his famous talk "Inventing on Prin
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1139,24 +896,6 @@ It feels like a breath of fresh air after years spent learning all sorts of CSS 
         ++ goToIndex
         ++ """
 
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## 15. Readability and Elm syntax
@@ -1244,24 +983,6 @@ This formatting style has several benefits, for example, the code looks more org
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 16. Refactoring
 
 The idea that the [Elm compiler is like an assistant](#10-compiler-as-assistant) and the fact that once the code compiles, it usually works makes refactoring a pleasant experience.
@@ -1291,28 +1012,9 @@ In our largest project, we are in the middle of a third major refactoring iterat
 """
         ++ goToIndex
         ++ """
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
 ## 17. Hiring
 
 Hiring for a language that is not mainstream has some downsides. For example, not many developers probably know it fluently.
@@ -1328,23 +1030,9 @@ Moreover, hiring for a minor technology can boost your brand as an innovative co
 """
         ++ goToIndex
         ++ """
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
 ## 18. Fast performance and small assets
 
 The Elm compiler can apply several optimizations specific to the fact that Elm is a purely functional language. This leads to several benefits, including:
@@ -1366,18 +1054,6 @@ The Elm compiler per se is also fast. Our bigger codebase contains ~66,500 lines
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## 19. Content-driven static websites
 
 Elm is not a good fit to build static websites that are mostly content-driven. In these cases, an old server-side rendered website can be a better option.
@@ -1391,18 +1067,6 @@ These characteristics help to achieve good Lighthouse scores and good search eng
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1434,27 +1098,9 @@ If you still need to be reassured, consider that, regardless of the popularity o
 """
         ++ goToIndex
         ++ """
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
-    
-    
-    
-    
+
+
 ## 2. Lack of Googleable resources
 
 Asking an Elm question in Google does not always yield good results.
@@ -1479,25 +1125,6 @@ Other times, resources are scattered and are not published with good SEO. Take, 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 3. Reinventing the wheel
 
 Because Elm is not a mainstream language, it is sometimes necessary to reinvent something that could otherwise have been acquired by adopting a different technology. For example, we wrote a library inspired by *react-jsonschema-form* to create HTML forms.[^r10-form-library] 
@@ -1509,27 +1136,6 @@ This issue was more significant in the past because nowadays the number of Elm p
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1551,26 +1157,6 @@ But for someone else is a burden and could discourage a team from adopting Elm.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 5. Some JavaScript and CSS are still necessary
 
 Ideally, we could build an application by just writing in the Elm language. But if you need to use a third-party library not converted to Elm, we still need to use JavaScript. Doing so means entering again into the realm of possible runtime errors.
@@ -1588,17 +1174,6 @@ Related to this, Elm is probably not a good fit for short projects that require 
 """
         ++ goToIndex
         ++ """
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1626,12 +1201,6 @@ Compared to the pre-Elm experience, coding is now more enjoyable, more productiv
 
 
 
-
-
-
-
-
-
 # Other testimonies
 
 It is always good to hear a different opinion on every argument. Here you can find other testimonies of Elm being adopted in different companies:
@@ -1644,15 +1213,17 @@ It is always good to hear a different opinion on every argument. Here you can fi
 * [Elm at Culture Amp](https://www.youtube.com/watch?v=LZj_1qVURL0)
 * [Elm at Thoughtbot](https://thoughtbot.com/blog/tags/elm)
 * [Elm at other companies](https://github.com/jah2488/elm-companies#readme)
-    
-
-
 
 
 
 """
         ++ goToIndex
-        ++ """
-
+        ++ (case target of
+                DevTo ->
+                    """
 ### Notes
 """
+
+                Hugo ->
+                    ""
+           )
