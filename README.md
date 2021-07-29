@@ -14,3 +14,9 @@ Then access
 
 * http://localhost:8000/src/Illustration.elm
 * http://localhost:8000/src/Post.elm
+
+---
+
+Remember to prettify the markdown:
+
+https://prettier.io/playground
