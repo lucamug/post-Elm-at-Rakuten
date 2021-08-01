@@ -27,7 +27,7 @@ type Target
 
 target : Target
 target =
-    Hugo
+    DevTo
 
 
 regex : Regex.Regex
@@ -421,9 +421,7 @@ TypeScript, which adds optional static typing to JavaScript and is probably one 
 
 [^blind-spots]: The article [TypeScript's Blind Spots](https://incrementalelm.com/tips/typescript-blind-spots/) by Dillon Kearns illustrates several weak points of TypeScript.
 
-[^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:
-{snippet_example_type_guard.js}
-After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
+[^type-guards]: [Type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html) are TypeScript expressions that perform a runtime check to discriminate between *custom types*. For example:{snippet_example_type_guard.js}After that is possible to write code like:{snippet_example_type_guard_usage.js}In Elm *type guards* are not needed, it is possible to just directly use a [case .. of](https://guide.elm-lang.org/types/pattern_matching.html) construct{snippet_Example_case_of.elm}The **case .. of** construct also guarantees that we are considering all possible custom types.
 """
         ++ goToIndex
         ++ """
@@ -443,7 +441,7 @@ The depth of the Elm type system allows us to model scenarios precisely, to **ma
 
 [^coding-patterns]: These [coding patterns in Elm](https://sporto.github.io/elm-patterns/index.html) are considered good practice. [Making impossible states impossible](https://sporto.github.io/elm-patterns/basic/impossible-states.html) is one of them.
 
-To clarify, let's make an example modeling the HTTP state with a **type alias**[^type-alias]:
+To clarify, let's make an example modeling the HTTP state with a **type alias**:[^type-alias]
 
 [^type-alias]: A [`type alias`](https://guide.elm-lang.org/types/type_aliases.html) is a shorter name for a type. 
 
@@ -672,7 +670,7 @@ For example:
     
 * There are also several programming languages influenced by Elm: [Roc](https://youtu.be/ZnYa99QoznE?t=4792) | [Gleam](https://youtu.be/ceynSTa1dV4) | [Dark](https://darklang.com/) | [Play](https://www.play-lang.dev/).
 
-* The quality of error messages provided by the Elm compiler propelled efforts by several languages to improve their error messaging system.
+* The quality of error messages provided by the Elm compiler propelled efforts by several other compilers, such as the [Rust](https://blog.rust-lang.org/2016/08/10/Shape-of-errors-to-come.html) and the [Scala](https://www.scala-lang.org/blog/2016/10/14/dotty-errors.html) compilers, to improve their error messaging system.
 
 [^redux-prior-art]: The [Prior Art](https://redux.js.org/understanding/history-and-design/prior-art) document of **Redux** explains the Elm influence in detail.
 
